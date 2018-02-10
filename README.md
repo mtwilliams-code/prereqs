@@ -17,11 +17,9 @@ Directory Structure
 -------------------
 + Implementation should be in `prereqs/src/main/java/com/blinkendorf/app/`.
 + Cucumber features should be in `prereqs/src/test/resources/cucumber/`.
-  These could really be anywhere, see "Running Cucumber tests..." below.
-+ Cucumber Step Definitons should be in `prereqs/src/test/java/com/blinkendorf/
-app/steps/`.
-+ Cucumber jUnit runner should be in `prereqs/src/test/java/com/blinkendorf/app/
-runner`
+  *These could really be anywhere, see "Running Cucumber tests..." below.*
++ Cucumber Step Definitons should be in `prereqs/src/test/java/com/blinkendorf/app/steps/`.
++ Cucumber jUnit runner should be in `prereqs/src/test/java/com/blinkendorf/app/runner`
 
 
 Maven basic commands
