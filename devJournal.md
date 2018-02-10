@@ -79,7 +79,9 @@ as we work on the first iteration, and when the first iteration is complete
 we will merge it into `master`. `cukeFeatures` is the branch where I will write
 the first draft of our Cucumber Features file. 
 
-
+**The devJournal in the `master` branch will not be updated until the first
+iteration is merged in.** Check the devJournal in the `v0.1` branch for current
+status.
 
 
 
