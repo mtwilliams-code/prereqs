@@ -70,6 +70,18 @@ See [this](https://www.atlassian.com/git/tutorials/comparing-workflows/feature
 7. Use Branches
 8. Use *Feature Branching* Workflow
 
+Matthew 2/10/2018 4:55pm
+========================
+
+In an effort to practice the Feature Branching Workflow, I have added two new 
+branches: `v0.1` and `cukeFeatures`. `v0.1` will be the branch we merge into
+as we work on the first iteration, and when the first iteration is complete
+we will merge it into `master`. `cukeFeatures` is the branch where I will write
+the first draft of our Cucumber Features file. 
+
+
+
+
 
 
 *[JSEF]: Java Simple Exchange Format
