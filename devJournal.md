@@ -74,11 +74,13 @@ Matthew 2/10/2018 4:55pm
 ========================
 
 In an effort to practice the Feature Branching Workflow, I have added two new 
-branches: `v0.1` and `cukeFeatures`. `v0.1` will be the branch we merge into
+branches: `0.0.1` and `cukeFeatures`. `0.0.1` will be the branch we merge into
 as we work on the first iteration, and when the first iteration is complete
 we will merge it into `master`. `cukeFeatures` is the branch where I will write
 the first draft of our Cucumber Features file. 
 
+Regarding the branch names, I suggest camelCase for the feature branches and
+[Semantic Versioning](https://semver.org/) for the version branches.
 **The devJournal in the `master` branch will not be updated until the first
 iteration is merged in.** Check the devJournal in the `v0.1` branch for current
 status.
