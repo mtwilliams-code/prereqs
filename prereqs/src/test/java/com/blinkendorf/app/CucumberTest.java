@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     format = { "pretty", "html:target/cucumber" },
-    features = "classpath:cucumber/CSV_Reader.feature"
+    features = "classpath:cucumber/"
 )
 public class CucumberTest {
 }
