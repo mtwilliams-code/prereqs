@@ -18,12 +18,12 @@ import java.net.*;
 
 public class SQL_Integration_Steps {
 
+  SQL_Connector conn;
+
   @Given("^a mySQL server is running on the local machine$")
   public void a_mySQL_server_is_running_on_the_local_machine() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
-    // checks whethere ip address is reachable - does not check if server is running
+    // this opens a Socket with the default mySQL port on localhost. Should only work if a server is listening to 3306
     InetAddress addr = InetAddress.getByName("localhost");
-    // addr.isReachable(2000); //tries for two seconds to connect to localhost. Should be plenty of time.
     int port = 3306;
     SocketAddress sockaddr = new InetSocketAddress(addr, port);
     Socket sock = new Socket();
@@ -32,14 +32,18 @@ public class SQL_Integration_Steps {
 
   @Given("^the app is not already connected to a server$")
   public void the_app_is_not_already_connected_to_a_server() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+    // let's test this later, when we actually have an app.
   }
 
   @When("^the app tries to connect to the local server$")
   public void the_app_tries_to_connect_to_the_local_server() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+    try {
+    conn = new SQL_Connector();
+    }
+    catch(Exception e)
+    {
+      throw e;
+    }
   }
 
   @Then("^the connection should be valid$")

@@ -13,11 +13,11 @@ public class SQL_Connector {
   String username = "java";
   String password = "Java";
 
-  void main() {
+  public SQL_Connector() throws Exception {
     System.out.println("Connecting database...");
     Connection conn = null;
     try {
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/registration" + "user=java&password=Java");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/registration" + "user=java&password=Java");
 
       // Do something with the Connection
 
@@ -26,6 +26,7 @@ public class SQL_Connector {
       System.out.println("SQLException: " + ex.getMessage());
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
+      throw new Exception(ex.getMessage());
     }
   }
 
