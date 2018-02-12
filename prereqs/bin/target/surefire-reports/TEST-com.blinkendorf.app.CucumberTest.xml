@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.blinkendorf.app.AppTest" time="0.001" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="com.blinkendorf.app.CucumberTest" time="0" tests="2" errors="0" skipped="2" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -41,7 +41,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-8-openjdk-amd64/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -58,5 +58,48 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testApp" classname="com.blinkendorf.app.AppTest" time="0.001"/>
+  <testcase name="Reading a file" classname="CSVReader" time="0">
+    <skipped/>
+    <system-out><![CDATA[Feature: CSVReader
+  The program should be able to read a .csv file,
+  retrieve all relevant information, 
+  and store it in a number of Java objects.
+
+  Scenario Outline: Reading a file &amp#27;[90m# cucumber/CSV_Reader.feature:6&amp#27;[0m
+    &amp#27;[36mGiven the file at "<pathname>"&amp#27;[0m
+    &amp#27;[36mWhen the file is read&amp#27;[0m
+    &amp#27;[36mThen the reader should return "<result>"&amp#27;[0m
+
+    Examples: 
+
+  Scenario Outline: Reading a file                               &amp#27;[90m# cucumber/CSV_Reader.feature:13&amp#27;[0m
+    &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mthe file at "&amp#27;[0m&amp#27;[32m&amp#27;[1m./src/test/resources/data/threeLines.csv&amp#27;[0m&amp#27;[32m"&amp#27;[0m &amp#27;[90m# CSV_ReaderSteps.the_file_at(String)&amp#27;[0m
+Name= SmithMary
+Name= JulieNeal
+Name= RobertAdelman
+    &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mthe file is read&amp#27;[0m                                        &amp#27;[90m# CSV_ReaderSteps.the_file_is_read()&amp#27;[0m
+    &amp#27;[33mThen &amp#27;[0m&amp#27;[33mthe reader should return "&amp#27;[0m&amp#27;[33m&amp#27;[1mturkey&amp#27;[0m&amp#27;[33m"&amp#27;[0m                       &amp#27;[90m# CSV_ReaderSteps.the_reader_should_return(String)&amp#27;[0m
+      &amp#27;[33mcucumber.api.PendingException: TODO: implement me
+	at com.blinkendorf.app.CSV_ReaderSteps.the_reader_should_return(CSV_ReaderSteps.java:39)
+	at ✽.the reader should return "turkey"(cucumber/CSV_Reader.feature:9)
+&amp#27;[0m
+]]></system-out>
+  </testcase>
+  <testcase name="Reading a file" classname="CSVReader" time="0">
+    <skipped/>
+    <system-out><![CDATA[
+  Scenario Outline: Reading a file                              &amp#27;[90m# cucumber/CSV_Reader.feature:14&amp#27;[0m
+    &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mthe file at "&amp#27;[0m&amp#27;[32m&amp#27;[1m./src/test/resources/data/fourLines.csv&amp#27;[0m&amp#27;[32m"&amp#27;[0m &amp#27;[90m# CSV_ReaderSteps.the_file_at(String)&amp#27;[0m
+Name= TimothyFacundo
+Name= TomasNichols
+Name= MadelynFoley
+Name= NancyNiss
+    &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mthe file is read&amp#27;[0m                                       &amp#27;[90m# CSV_ReaderSteps.the_file_is_read()&amp#27;[0m
+    &amp#27;[33mThen &amp#27;[0m&amp#27;[33mthe reader should return "&amp#27;[0m&amp#27;[33m&amp#27;[1mchicken&amp#27;[0m&amp#27;[33m"&amp#27;[0m                     &amp#27;[90m# CSV_ReaderSteps.the_reader_should_return(String)&amp#27;[0m
+      &amp#27;[33mcucumber.api.PendingException: TODO: implement me
+	at com.blinkendorf.app.CSV_ReaderSteps.the_reader_should_return(CSV_ReaderSteps.java:39)
+	at ✽.the reader should return "chicken"(cucumber/CSV_Reader.feature:9)
+&amp#27;[0m
+]]></system-out>
+  </testcase>
 </testsuite>
