@@ -79,4 +79,14 @@ public class SQL_Connector {
     }
   }
 
+  public boolean isConnected() throws Exception {
+    try {
+      return conn.isValid(2000);
+    }
+    catch (Exception e)
+    {
+      throw e;
+    }
+  }
+
 }

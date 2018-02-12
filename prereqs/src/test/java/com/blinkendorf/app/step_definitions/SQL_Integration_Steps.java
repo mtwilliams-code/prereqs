@@ -37,18 +37,12 @@ public class SQL_Integration_Steps {
 
   @When("^the app tries to connect to the local server$")
   public void the_app_tries_to_connect_to_the_local_server() throws Exception {
-    try {
     conn = new SQL_Connector();
-    }
-    catch(Exception e)
-    {
-      throw e;
-    }
   }
 
   @Then("^the connection should be valid$")
   public void the_connection_should_be_valid() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+    assertEquals(true, conn.isConnected());
   }
 }
