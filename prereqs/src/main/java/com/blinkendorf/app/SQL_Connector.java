@@ -42,6 +42,7 @@ public class SQL_Connector {
     System.out.println("Connecting database...");
     try {
       conn = DriverManager.getConnection(url, username, password);
+      //I haven't the slightest idea what this does but I think its necessary
       Class.forName("com.mysql.jdbc.Driver");
       // Do something with the Connection
       System.out.println("Database connected!");
