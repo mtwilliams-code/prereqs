@@ -1,0 +1,5 @@
+Class name,Course Number,CRN,PreReq(1),PreReq Crn,Grade Required,Classification
+Programming II,CS 130,21001,CS 120,20940,C,Any
+Computer Org,CS 220,20982,CS 130 ,21001,C,Sophmore
+Programming Languages,CS 352,20924,CS 230,10888,C,Junior
+Operating systems ,CS 356,10952,CS 220,20982,C,Junior
