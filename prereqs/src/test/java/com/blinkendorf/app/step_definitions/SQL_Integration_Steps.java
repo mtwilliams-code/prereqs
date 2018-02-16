@@ -6,10 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import com.blinkendorf.app.SQL_Connector;
-import java.nio.file.Files;
-import java.nio.file.*;
 import java.net.*;
 import java.sql.ResultSet;
 

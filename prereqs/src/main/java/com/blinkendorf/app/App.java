@@ -1,6 +1,5 @@
 package com.blinkendorf.app;
 
-import java.sql.SQLException;
 
 import com.blinkendorf.app.SQL_Connector;
 
@@ -21,7 +20,5 @@ public class App
         catch (Exception ex) {
 
         }
-        conn.
-        System.out.println("Connected
     }
 }

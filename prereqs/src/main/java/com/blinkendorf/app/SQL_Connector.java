@@ -11,7 +11,7 @@ import java.sql.DatabaseMetaData;
 
 public class SQL_Connector {
 
-  String url = "jdbc:mysql://localhost:3306/";
+  String url = "jdbc:mysql://localhost:3306";
   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
   String username = "java";
   String password = "Java";
@@ -53,6 +53,8 @@ public class SQL_Connector {
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
       throw new Exception(ex.getMessage());
+    } catch (Exception ex) {
+      System.out.println(ex.getMessage());
     }
   }
 
