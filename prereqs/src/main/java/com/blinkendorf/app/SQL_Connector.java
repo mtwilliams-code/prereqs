@@ -117,9 +117,12 @@ public class SQL_Connector {
 public void createDatabase(String dbname) throws SQLException {
     Statement stmt = null;
     stmt = conn.createStatement();
+    String query;
     try {
-      String query = "DROP DATABASE " + dbname;
-      stmt.executeUpdate(query);
+      // if (dbname database exists) {
+      //   query = "DROP DATABASE " + dbname;
+      //   stmt.executeUpdate(query);
+      // }
       query = "CREATE DATABASE " + dbname;
       stmt.executeUpdate(query);
     } catch (SQLException e) {
