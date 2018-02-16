@@ -19,11 +19,11 @@ Maven will automatically locate these repositiories and install them in your
 
 Directory Structure
 -------------------
-+ Implementation should be in `prereqs/src/main/java/com/blinkendorf/app/`.
-+ Cucumber features should be in `prereqs/src/test/resources/cucumber/`.
++ Implementation should be in `prereqs/src/main/java/com/blinkendorf/app/*.java`.
++ Cucumber features should be in `prereqs/src/test/resources/cucumber/*.feature`.
   *These could really be anywhere, see "Running Cucumber tests..." below.*
-+ Cucumber Step Definitons should be in `prereqs/src/test/java/com/blinkendorf/app/steps/`.
-+ Cucumber jUnit runner should be in `prereqs/src/test/java/com/blinkendorf/app/runner`
++ Cucumber Step Definitons should be in `prereqs/src/test/java/com/blinkendorf/app/step_definitions/*.java`.
++ Cucumber jUnit runner should be in `prereqs/src/test/java/com/blinkendorf/app/CucumberTest.java`
 
 
 Maven basic commands

@@ -1,20 +1,14 @@
 package com.blinkendorf.app.step_definitions;
 
-
 import cucumber.api.java.en.*;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import com.blinkendorf.app.SQL_Connector;
-import java.nio.file.Files;
-import java.nio.file.*;
 import java.net.*;
+import java.sql.ResultSet;
 
 public class SQL_Integration_Steps {
 
@@ -35,8 +29,8 @@ public class SQL_Integration_Steps {
     // let's test this later, when we actually have an app.
   }
 
-  @When("^the app tries to connect to the local server$")
-  public void the_app_tries_to_connect_to_the_local_server() throws Exception {
+  @When("^the app connects to the local server$")
+  public void the_app_connects_to_the_local_server() throws Exception {
     conn = new SQL_Connector();
   }
 
@@ -45,4 +39,55 @@ public class SQL_Integration_Steps {
     // Write code here that turns the phrase above into concrete actions
     assertEquals(true, conn.isConnected());
   }
+
+  @Given("^the \"([^\"]*)\" database exists on the server$")
+  public void the_database_exists_on_the_server(String arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    // Connection connection = <your java.sql.Connection>
+    ResultSet resultSet = conn.getConnection().getMetaData().getCatalogs();
+    //iterate each catalog in the ResultSet
+    boolean found = false;
+    while (resultSet.next()) {
+      // Get the database name, which is at position 1
+      String databaseName = resultSet.getString(1);
+      if (databaseName.equalsIgnoreCase(arg1)) {
+        found = true;
+      }
+    }
+    resultSet.close();
+    assertEquals(true, found);  
+  }
+
+  @When("^the app tries to create the registration table$")
+  public void the_app_tries_to_create_the_registration_table() throws Exception {
+    conn.createRegistrationTable();
+  }
+
+  @Then("^the database should contain a (?:blank) \"([^\"]*)\" table$")
+  public void the_server_should_hold_a_table(String arg1) throws Exception {
+    java.sql.ResultSet rs = conn.getAllTableNames();
+    boolean flag = false;
+    while (rs.next()) {
+      if (rs.getString(3).equalsIgnoreCase(arg1)) {
+        flag = true;
+      }
+    }
+    assertEquals(true, flag);
+  }
+
+  @When("^the app tries to create the \"([^\"]*)\" database$")
+  public void the_app_tries_to_create_the_database(String arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    conn.createDatabase(arg1);
+  }
+
+  @Given("^the app connects to the \"([^\"]*)\" database on the server$")
+  public void the_app_connects_to_the_database_on_the_server(String arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    String url = "jdbc:mysql://localhost:3306/" + arg1;
+    String username = "java";
+    String password = "Java";
+    conn = new SQL_Connector(url, username, password);
+  }
+
 }
