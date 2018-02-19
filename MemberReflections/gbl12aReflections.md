@@ -25,10 +25,7 @@
 > 
 
 ## Leadership
->
-
-## Communication
->
+> 
 
 ## Adaptability
->
+> 
