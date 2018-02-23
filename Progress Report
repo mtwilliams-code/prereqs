@@ -7,7 +7,7 @@ Matthew Williams 50% Wrote SQL connection, set up maven, set up project and Gitl
 Gideon Luck 5% Wrote the glossary
 
 2/23/2018
-John Roper: 
-John Marsden: Wrote SQL query, and wrote an SQL function, wrote a Java function that runs a query.
-Matthew Williams:  
-Gideon Luck: Progress indicator, weekly checklist, user stories 
+John Roper: 25% I collected all the prereqs for all of sitc.
+John Marsden: 25% Wrote SQL query, and wrote an SQL function, wrote a Java function that runs a query.
+Matthew Williams: 30% Fixed the Jar packaging, fixed app.java, added import function to SQLconnector.java  
+Gideon Luck: 20% Progress indicator, weekly checklist, user stories 
