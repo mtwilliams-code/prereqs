@@ -12,7 +12,7 @@ import java.sql.DatabaseMetaData;
 public class SQL_Connector {
 
   String url = "jdbc:mysql://localhost:3306";
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
   String username = "java";
   String password = "Java";
   Connection conn = null;
@@ -22,9 +22,33 @@ public class SQL_Connector {
    * 
    * 
    */
-  public Connection getConnection()
-  {
+  public Connection getConnection() {
     return conn;
+  }
+
+  public ResultSet loadCSV(File file) throws SQLException{
+    Statement stmt = null;
+    stmt = conn.createStatement();
+    String query;
+    ResultSet rslt = null;
+    try {
+      query = "load data local infile '" + file.toPath() + "' into table registration columns terminated by ',' "
+      + "enclosed by '\"' escaped by '\"' "
+      + "lines terminated by '\n' "
+      + "ignore 1 lines";
+      stmt.executeUpdate(query);
+      rslt = stmt.getResultSet();
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }   
+    return rslt;
   }
 
   /**
@@ -114,7 +138,12 @@ public class SQL_Connector {
     }
   }
 
-public void createDatabase(String dbname) throws SQLException {
+  /**
+   * Creates Database. Assumes it does not already exist or it will throw an error
+   * 
+   * @param dbname String for the name of the database to be created
+   */
+  public void createDatabase(String dbname) throws SQLException {
     Statement stmt = null;
     stmt = conn.createStatement();
     String query;
@@ -123,7 +152,7 @@ public void createDatabase(String dbname) throws SQLException {
       //   query = "DROP DATABASE " + dbname;
       //   stmt.executeUpdate(query);
       // }
-      query = "CREATE DATABASE " + dbname;
+      query = "CREATE DATABASE IF NOT EXISTS " + dbname;
       stmt.executeUpdate(query);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -135,11 +164,15 @@ public void createDatabase(String dbname) throws SQLException {
         stmt.close();
       }
     }
-}
+  }
 
-
-public ResultSet getAllTableNames() throws SQLException {
-  ResultSet rs = null;
+  /** 
+   * Returns ResultSet containing, among other things, all of the table names
+   * 
+   * @return ResultSet
+   */
+  public ResultSet getAllTableNames() throws SQLException {
+    ResultSet rs = null;
     try {
       DatabaseMetaData md = conn.getMetaData();
       rs = md.getTables(null, null, "%", null);
@@ -149,9 +182,8 @@ public ResultSet getAllTableNames() throws SQLException {
       System.out.println("VendorError: " + e.getErrorCode());
       throw e;
     }
-      return rs;
-}
-
+    return rs;
+  }
 
   /**
    * Creates "registration" table on "records" database with space for all data in CSV
@@ -165,7 +197,9 @@ public ResultSet getAllTableNames() throws SQLException {
       // alternatively we could write code to parse the sql file line by line and execute, but I didn't want to do that.
       // if someone wants to take charge of that, it would def be a better long term strategy
       stmt = conn.createStatement();
-      String query = "CREATE TABLE REGISTRATION (Pidm INT)";
+      String query = "DROP TABLE IF EXISTS REGISTRATION";
+      stmt.executeUpdate(query);
+      query = "CREATE TABLE IF NOT EXISTS REGISTRATION (Pidm INT)";
       stmt.executeUpdate(query);
       query = "ALTER TABLE REGISTRATION ADD COLUMN Term_Code INT";
       stmt.executeUpdate(query);

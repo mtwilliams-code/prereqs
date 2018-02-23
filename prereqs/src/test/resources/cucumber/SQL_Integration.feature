@@ -23,4 +23,14 @@ Feature: Integrate with local mySQL database
     When the app tries to create the registration table
     Then the database should contain a blank "registration" table
 
-  
+  Scenario Outline: Import data from CSV file into mySQL server
+  The app shoul be able to import any csv file of the appropriate form into the table
+    Given a mySQL server is running on the local machine
+    And the app connects to the "RECORDS" database on the server 
+    When the app tries to import the data from "<filepath>"
+    Then the database should be updated
+
+Examples:
+| filepath |
+| src/test/resources/data/full/registration_anon.csv |
+
