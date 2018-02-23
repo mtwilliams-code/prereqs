@@ -64,8 +64,7 @@ public class SQL_Integration_Steps {
 
   @When("^the app tries to create the registration table$")
   public void the_app_tries_to_create_the_registration_table() throws Exception {
-    assumeTrue(true); //doing this cuz it takes forever
-    // conn.createRegistrationTable();
+    conn.createRegistrationTable();
   }
 
   @Then("^the database should contain a (?:blank) \"([^\"]*)\" table$")
