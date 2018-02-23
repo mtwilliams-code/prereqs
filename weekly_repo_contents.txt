@@ -1,0 +1,17 @@
+CS374 Software Engineering I Weekly Checklist
+
+Team: Blinkendorf
+Members: Gideon Luck, John Marsden, John Roper, Matthew Williams
+
+Timestamp (180223 02:05)
+
+Indicate the file/folder in the repo for each of the following items.
+
+Glossary: Wiki 
+Member reflections: MemberReflections
+Status reports: Progress Report
+Code: prereqs
+Documentation: README.md
+User Stories:userStories.md
+How to install: README.md
+How to run: README.md
