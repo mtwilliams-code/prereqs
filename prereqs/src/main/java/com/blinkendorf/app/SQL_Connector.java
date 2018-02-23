@@ -505,4 +505,30 @@ public class SQL_Connector {
     }
   }
 
+  public ResultSet studentsInClass(String class_code) throws SQLException
+  {
+    ResultSet rslt = null;
+    Statement stmt = null;
+    try
+    {
+      
+      stmt = conn.createStatement();
+      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number) = '"+class_code+"' AND Term_Code = 201710";
+      stmt.executeUpdate(query);
+      rslt = stmt.getResultSet();
+      return rslt;
+    }
+    catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    }
+    finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
+  }
+
 }
