@@ -65,9 +65,9 @@ public class SQL_Connector {
   public SQL_Connector() throws Exception {
     System.out.println("Connecting database...");
     try {
-      conn = DriverManager.getConnection(url, username, password);
       //I haven't the slightest idea what this does but I think its necessary
       Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection(url, username, password);
       // Do something with the Connection
       System.out.println("Database connected!");
 
@@ -99,8 +99,8 @@ public class SQL_Connector {
     this.username = username;
     this.password = password;
     try {
-      conn = DriverManager.getConnection(url, username, password);
       Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection(url, username, password);
       // Do something with the Connection
       System.out.println("Database connected!");
 
