@@ -34,3 +34,10 @@ Examples:
 | filepath |
 | src/test/resources/data/full/registration_anon.csv |
 
+
+  Scenario: Test output of people in a class in the term 201410
+    Given the class code "CS374"
+    And the term code "201410"
+    And the app connects to the "RECORDS" database on the server
+    When the app runs the query
+    Then the first name should be "Sherry Colquitt"

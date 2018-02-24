@@ -17,6 +17,9 @@ import java.sql.ResultSet;
 public class SQL_Integration_Steps {
 
   SQL_Connector conn;
+  String class_code;
+  int term_code;
+  String first_query;
 
   @Given("^a mySQL server is running on the local machine$")
   public void a_mySQL_server_is_running_on_the_local_machine() throws Exception {
@@ -108,5 +111,28 @@ public class SQL_Integration_Steps {
       assumeTrue(true);
   } 
 
+  @Given("^the class code \"([^\"]*)\"$")
+  public void the_class_code(String arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    class_code = arg1;
+  }
+
+  @Given("^the term code \"([^\"]*)\"$")
+  public void the_term_code(int arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    term_code = arg1;
+  }
+
+  @When("^the app runs the query$")
+  public void the_app_runs_the_query() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    first_query = conn.firstNameInClass(class_code,term_code);
+  }
+
+  @Then("^the first name should be \"([^\"]*)\"$")
+  public void the_first_name_should_be(String arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    assertEquals(arg1, first_query);
+  }
 
 }

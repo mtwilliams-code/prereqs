@@ -32,7 +32,7 @@ public class SQL_Connector {
     String query;
     ResultSet rslt = null;
     try {
-      query = "load data local infile '" + file.toPath() + "' into table registration columns terminated by ',' "
+      query = "load data local infile '" + file.toPath() + "' into table REGISTRATION columns terminated by ',' "
       + "enclosed by '\"' escaped by '\"' "
       + "lines terminated by '\n' "
       + "ignore 1 lines";
@@ -199,299 +199,156 @@ public class SQL_Connector {
       stmt = conn.createStatement();
       String query = "DROP TABLE IF EXISTS REGISTRATION";
       stmt.executeUpdate(query);
-      query = "CREATE TABLE IF NOT EXISTS REGISTRATION (Pidm INT)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Term_Code INT";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Part_of_Term_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Part_of_Term_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Enrolled_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Registered_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Junk VARCHAR(2)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Student_Status_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Student_Status_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Level_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Level_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Student_Type_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Student_Type_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Program_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Program_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Campus_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Campus_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Department_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Department_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Degree_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Degree_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN College_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN College_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Code1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Desc1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Degree_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Degree_Desc2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN College_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN College_Desc2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Major_Desc2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Class_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Class_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN CRN VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Reg_STS_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Reg_STS_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Spec_Approval_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Reg_Error_Flag VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Subject_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Subject_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Number VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Number VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Title VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Level_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Campus_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Billing_Hours VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Credit_Hours VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Instructor_ID VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Instructor_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Hours_Attended VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Grade_Mode_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Grade_Mode_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Midterm_Grade_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Grade_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Banner_ID VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN First_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Last_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Middle_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Prefix VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Suffix VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Preferred_First_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Confid_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN ACU_Email_Address VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Home_Email_Address VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Begin_Time_1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN End_Time1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Bldg_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Bldg_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Room_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Schd_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Monday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Tuesday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Wednesday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Thursday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Friday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Saturday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sunday_Ind1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Begin_Time2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN End_Time2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Bldg_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Bldg_Desc2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Room_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Schd_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Monday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Tuesday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Wednesday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Thursday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Friday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Saturday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sunday_Ind2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Advisor1_Term_Code_Eff VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Advisor1_Last_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Advisor1_First_Name VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Advisor1_Advisor_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Advisor1_Primary_Advisor_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport1_Activity_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport1_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport1_Eligibilty_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport1_Athletic_Aid_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport2_Activity__Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport2_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport2_Eligibility_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Sport2_Athletic_Aid_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Term VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Certified_Hours VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Certified_Date VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Vet_Certified_Hours2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Conc_Code1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Conc_Desc1 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Code1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Desc1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Conc_Code1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Conc_Desc1_2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Code2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Minor_Desc2 VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Rate_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA_Hrs_Attempted VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA__Hours_Earned VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA_Hrs VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA_Quality_Points VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ovrall_Cumm_GPA_Hrs_Passed VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Dead_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Date_Class_Added VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Registration_Status_Date VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Activity_Date VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_College_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_College_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Dept_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Course_Dept_Desc VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN International_Ind VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Part_of_Term_Start_Date VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Part_of_Term_End_Date VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Max_Enrollment VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Enrollment VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Available_Seats VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Schedule_Type VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Instruction_Method VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Section_Session_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ipeds_Ethnic_Code VARCHAR(36)";
-      stmt.executeUpdate(query);
-      query = "ALTER TABLE REGISTRATION ADD COLUMN Ipeds_Ethnic_Desc VARCHAR(36)";
+      query = "CREATE TABLE REGISTRATION ("
+        +"Pidm INT NOT NULL,"
+        +"Term_Code INT,"
+        +"Part_of_Term_Code VARCHAR(36),"
+        +"Part_of_Term_Desc VARCHAR(36),"
+        +"Enrolled_Ind VARCHAR(36),"
+        +"Registered_Ind VARCHAR(36),"
+        +"Junk VARCHAR(2),"
+        +"Student_Status_Code VARCHAR(36),"
+        +"Student_Status_Desc VARCHAR(36),"
+        +"Level_Code VARCHAR(36),"
+        +"Level_Desc VARCHAR(36),"
+        +"Student_Type_Code VARCHAR(36),"
+        +"Student_Type_Desc VARCHAR(36),"
+        +"Program_Code1 VARCHAR(36),"
+        +"Program_Code2 VARCHAR(36),"
+        +"Campus_Code VARCHAR(36),"
+        +"Campus_Desc VARCHAR(36),"
+        +"Department_Code VARCHAR(36),"
+        +"Department_Desc VARCHAR(36),"
+        +"Degree_Code1 VARCHAR(36),"
+        +"Degree_Desc1 VARCHAR(36),"
+        +"College_Code1 VARCHAR(36),"
+        +"College_Desc1 VARCHAR(36),"
+        +"Major_Code1 VARCHAR(36),"
+        +"Major_Desc1 VARCHAR(36),"
+        +"Major_Code1_2 VARCHAR(36),"
+        +"Major_Desc1_2 VARCHAR(36),"
+        +"Degree_Code2 VARCHAR(36),"
+        +"Degree_Desc2 VARCHAR(36),"
+        +"College_Code2 VARCHAR(36),"
+        +"College_Desc2 VARCHAR(36),"
+        +"Major_Code2 VARCHAR(36),"
+        +"Major_Desc2 VARCHAR(36),"
+        +"Class_Code VARCHAR(36),"
+        +"Class_Desc VARCHAR(36),"
+        +"CRN VARCHAR(36),"
+        +"Reg_STS_Code VARCHAR(36),"
+        +"Reg_STS_Desc VARCHAR(36),"
+        +"Spec_Approval_Ind VARCHAR(36),"
+        +"Reg_Error_Flag VARCHAR(36),"
+        +"Subject_Code VARCHAR(36),"
+        +"Subject_Desc VARCHAR(36),"
+        +"Course_Number VARCHAR(36),"
+        +"Section_Number VARCHAR(36),"
+        +"Course_Title VARCHAR(36),"
+        +"Course_Level_Code VARCHAR(36),"
+        +"Course_Campus_Code VARCHAR(36),"
+        +"Billing_Hours VARCHAR(36),"
+        +"Credit_Hours VARCHAR(36),"
+        +"Instructor_ID VARCHAR(36),"
+        +"Instructor_Name VARCHAR(36),"
+        +"Hours_Attended VARCHAR(36),"
+        +"Grade_Mode_Code VARCHAR(36),"
+        +"Grade_Mode_Desc VARCHAR(36),"
+        +"Midterm_Grade_Code VARCHAR(36),"
+        +"Grade_Code VARCHAR(36),"
+        +"Banner_ID VARCHAR(36),"
+        +"First_Name VARCHAR(36),"
+        +"Last_Name VARCHAR(36),"
+        +"Middle_Name VARCHAR(36),"
+        +"Prefix VARCHAR(36),"
+        +"Suffix VARCHAR(36),"
+        +"Preferred_First_Name VARCHAR(36),"
+        +"Confid_Ind VARCHAR(36),"
+        +"ACU_Email_Address VARCHAR(36),"
+        +"Home_Email_Address VARCHAR(36),"
+        +"Begin_Time_1 VARCHAR(36),"
+        +"End_Time1 VARCHAR(36),"
+        +"Bldg_Code1 VARCHAR(36),"
+        +"Bldg_Desc1 VARCHAR(36),"
+        +"Room_Code1 VARCHAR(36),"
+        +"Schd_Code1 VARCHAR(36),"
+        +"Monday_Ind1 VARCHAR(36),"
+        +"Tuesday_Ind1 VARCHAR(36),"
+        +"Wednesday_Ind1 VARCHAR(36),"
+        +"Thursday_Ind1 VARCHAR(36),"
+        +"Friday_Ind1 VARCHAR(36),"
+        +"Saturday_Ind1 VARCHAR(36),"
+        +"Sunday_Ind1 VARCHAR(36),"
+        +"Begin_Time2 VARCHAR(36),"
+        +"End_Time2 VARCHAR(36),"
+        +"Bldg_Code2 VARCHAR(36),"
+        +"Bldg_Desc2 VARCHAR(36),"
+        +"Room_Code2 VARCHAR(36),"
+        +"Schd_Code2 VARCHAR(36),"
+        +"Monday_Ind2 VARCHAR(36),"
+        +"Tuesday_Ind2 VARCHAR(36),"
+        +"Wednesday_Ind2 VARCHAR(36),"
+        +"Thursday_Ind2 VARCHAR(36),"
+        +"Friday_Ind2 VARCHAR(36),"
+        +"Saturday_Ind2 VARCHAR(36),"
+        +"Sunday_Ind2 VARCHAR(36),"
+        +"Advisor1_Term_Code_Eff VARCHAR(36),"
+        +"Advisor1_Last_Name VARCHAR(36),"
+        +"Advisor1_First_Name VARCHAR(36),"
+        +"Advisor1_Advisor_Code VARCHAR(36),"
+        +"Advisor1_Primary_Advisor_Ind VARCHAR(36),"
+        +"Sport1_Activity_Code VARCHAR(36),"
+        +"Sport1_Code VARCHAR(36),"
+        +"Sport1_Eligibilty_Code VARCHAR(36),"
+        +"Sport1_Athletic_Aid_Ind VARCHAR(36),"
+        +"Sport2_Activity__Code VARCHAR(36),"
+        +"Sport2_Code VARCHAR(36),"
+        +"Sport2_Eligibility_Code VARCHAR(36),"
+        +"Sport2_Athletic_Aid_Ind VARCHAR(36),"
+        +"Vet_Term VARCHAR(36),"
+        +"Vet_Code VARCHAR(36),"
+        +"Vet_Desc VARCHAR(36),"
+        +"Vet_Certified_Hours VARCHAR(36),"
+        +"Vet_Certified_Date VARCHAR(36),"
+        +"Vet_Certified_Hours2 VARCHAR(36),"
+        +"Minor_Code1 VARCHAR(36),"
+        +"Minor_Desc1 VARCHAR(36),"
+        +"Conc_Code1 VARCHAR(36),"
+        +"Conc_Desc1 VARCHAR(36),"
+        +"Minor_Code1_2 VARCHAR(36),"
+        +"Minor_Desc1_2 VARCHAR(36),"
+        +"Conc_Code1_2 VARCHAR(36),"
+        +"Conc_Desc1_2 VARCHAR(36),"
+        +"Minor_Code2 VARCHAR(36),"
+        +"Minor_Desc2 VARCHAR(36),"
+        +"Rate_Code VARCHAR(36),"
+        +"Ovrall_Cumm_GPA_Hrs_Attempted VARCHAR(36),"
+        +"Ovrall_Cumm_GPA__Hours_Earned VARCHAR(36),"
+        +"Ovrall_Cumm_GPA_Hrs VARCHAR(36),"
+        +"Ovrall_Cumm_GPA_Quality_Points VARCHAR(36),"
+        +"Ovrall_Cumm_GPA VARCHAR(36),"
+        +"Ovrall_Cumm_GPA_Hrs_Passed VARCHAR(36),"
+        +"Dead_Ind VARCHAR(36),"
+        +"Date_Class_Added VARCHAR(36),"
+        +"Registration_Status_Date VARCHAR(36),"
+        +"Activity_Date VARCHAR(36),"
+        +"Course_College_Code VARCHAR(36),"
+        +"Course_College_Desc VARCHAR(36),"
+        +"Course_Dept_Code VARCHAR(36),"
+        +"Course_Dept_Desc VARCHAR(36),"
+        +"International_Ind VARCHAR(36),"
+        +"Part_of_Term_Start_Date VARCHAR(36),"
+        +"Part_of_Term_End_Date VARCHAR(36),"
+        +"Section_Max_Enrollment VARCHAR(36),"
+        +"Section_Enrollment VARCHAR(36),"
+        +"Section_Available_Seats VARCHAR(36),"
+        +"Section_Schedule_Type VARCHAR(36),"
+        +"Section_Instruction_Method VARCHAR(36),"
+        +"Section_Session_Code VARCHAR(36),"
+        +"Ipeds_Ethnic_Code VARCHAR(36),"
+        +"Ipeds_Ethnic_Desc VARCHAR(36),"
+        +"PRIMARY KEY (Pidm),"
+        +"INDEX index2 (Subject_Code ASC , Course_Number ASC))";
       stmt.executeUpdate(query);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -505,18 +362,18 @@ public class SQL_Connector {
     }
   }
 
-  public ResultSet studentsInClass(String class_code) throws SQLException
+  public String firstNameInClass(String class_code, int term_code) throws SQLException
   {
     ResultSet rslt = null;
     Statement stmt = null;
     try
     {
-      
       stmt = conn.createStatement();
-      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number) = '"+class_code+"' AND Term_Code = 201710";
-      stmt.executeUpdate(query);
+      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+      stmt.executeQuery(query);
       rslt = stmt.getResultSet();
-      return rslt;
+      rslt.next();
+      return rslt.getString(1) + " " + rslt.getString(2);
     }
     catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
