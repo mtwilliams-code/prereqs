@@ -403,18 +403,18 @@ public class SQL_Connector {
       rslt = stmt.getResultSet();
       rsmd = rslt.getMetaData();
       numColumns = rsmd.getColumnCount();
-      formattedTable += String.format("|%10s|", rsmd.getColumnName(1));
+      formattedTable += String.format("|%12.12s|", rsmd.getColumnName(1));
       for(int i = 2; i <= numColumns; i++)
       {
-        formattedTable += String.format("|%10s|", rsmd.getColumnName(i));
+        formattedTable += String.format("|%12.12s|", rsmd.getColumnName(i));
       }
       formattedTable += "\n";
       while( rslt.next() )
       {
-        formattedTable += String.format("|%10s|", rslt.getString(1));
+        formattedTable += String.format("|%12.12s|", rslt.getString(1));
         for(int i = 2; i <= numColumns; i++)
         {
-          formattedTable += String.format("|%10s|", rslt.getString(i));
+          formattedTable += String.format("|%12.12s|", rslt.getString(i));
         }
         formattedTable += "\n";
       }
