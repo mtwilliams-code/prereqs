@@ -5,6 +5,7 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.DatabaseMetaData;
@@ -386,6 +387,50 @@ public class SQL_Connector {
         stmt.close();
       }
     }
+  }
+
+  public String tableFormatter(String query) throws SQLException
+  {
+    ResultSet rslt = null;
+    ResultSetMetaData rsmd = null;
+    Statement stmt = null;
+    int numColumns;
+    String formattedTable = "";
+    try
+    {
+      stmt = conn.createStatement();
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      formattedTable += String.format("|%10s|", rsmd.getColumnName(1));
+      for(int i = 2; i <= numColumns; i++)
+      {
+        formattedTable += String.format("|%10s|", rsmd.getColumnName(i));
+      }
+      formattedTable += "\n";
+      while( rslt.next() )
+      {
+        formattedTable += String.format("|%10s|", rslt.getString(1));
+        for(int i = 2; i <= numColumns; i++)
+        {
+          formattedTable += String.format("|%10s|", rslt.getString(i));
+        }
+        formattedTable += "\n";
+      }
+      return formattedTable;
+    }
+    catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    }
+    finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    } 
   }
 
 }

@@ -41,3 +41,9 @@ Examples:
     And the app connects to the "RECORDS" database on the server
     When the app runs the query
     Then the first name should be "Sherry Colquitt"
+
+  Scenario: Test the table formatters output
+    Given an arbitrary query
+    And the app connects to the "RECORDS" database on the server
+    Then something outputs
+

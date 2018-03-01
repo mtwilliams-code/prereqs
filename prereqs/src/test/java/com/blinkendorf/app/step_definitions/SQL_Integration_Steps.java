@@ -135,4 +135,17 @@ public class SQL_Integration_Steps {
     assertEquals(arg1, first_query);
   }
 
+  @Given("^an arbitrary query$")
+  public void an_arbitrary_query() throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      first_query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 115";
+  }
+
+  @Then("^something outputs$")
+  public void something_outputs() throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      System.out.print(conn.tableFormatter(first_query));
+      assumeTrue(true);
+  }
+
 }
