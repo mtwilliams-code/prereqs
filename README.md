@@ -1,4 +1,4 @@
-Project Name: Pre-Req Checker //if you feel that the name is terrible change it, I don't care
+Project Name: Pre-Req Checker
 
 Team Members: Gideon Luck, John Marsden, John Roper, Matthew Williams
 
@@ -78,4 +78,3 @@ between `@RunWith...` and `public...`:
     features = "classpath:cucumber/calculator.feature"
 )
 
-What will we need: A parser, 

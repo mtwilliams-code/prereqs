@@ -151,4 +151,23 @@ public class SQL_Integration_Steps {
       assumeTrue(true);
   }
 
+  @Given("^the section code \"([^\"]*)\"$")
+  public void the_term_code(int arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    section_code = arg1;
+  }
+
+  @When("^the app runs the new query$")
+  public void the_app_runs_the_new_query() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    first_query = conn.firstNameInClass(class_code,term_code);
+  }
+  
+  @Then("^the list of who have taken the class will be printed$")
+  public void something_else_outputs() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    System.out.print(conn.tableFormatter(first_query));
+    assumeTrue(true);
+  }
+
 }
