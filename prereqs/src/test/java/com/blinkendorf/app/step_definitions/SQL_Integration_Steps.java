@@ -157,7 +157,7 @@ public class SQL_Integration_Steps {
   @When("^the app runs the new query$")
   public void the_app_runs_the_new_query() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm, 'CS230','C') FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 374"
+    first_query = conn.firstNameInClass(class_code,term_code);
   }
   
   @Then("^the list of who have taken the class will be printed$")
