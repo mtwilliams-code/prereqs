@@ -148,4 +148,15 @@ public class SQL_Integration_Steps {
       assumeTrue(true);
   }
 
+  @Given("^the section code \"([^\"]*)\"$")
+  public void the_term_code(int arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    section_code = arg1;
+  }
+
+  @When("^the app runs the new query$")
+  public void the_app_runs_the_new_query() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    first_query = conn.firstNameInClass(class_code,term_code);
+  }
 }
