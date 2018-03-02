@@ -17,7 +17,7 @@ public class Data {
     data.add(record);
   }
 
-  public String printData()
+  public void printData()
   {
     int numColumns;
     String formattedTable = "";
@@ -28,16 +28,17 @@ public class Data {
         formattedTable += String.format("|%12.12s|", c_titles.get(0));
       }
       formattedTable += "\n";
-    //   while( rslt.next() )
-    //   {
-    //     formattedTable += String.format("|%12.12s|", rslt.getString(1));
-    //     for(int i = 2; i <= numColumns; i++)
-    //     {
-    //       formattedTable += String.format("|%12.12s|", rslt.getString(i));
-    //     }
-    //     formattedTable += "\n";
-    //   }
-      return formattedTable;
+      for (int i = 0; i < data.size(); i++)
+      {
+        formattedTable += String.format("|%12.12s|", data.get(i).get(0));
+        for(int j = 1; j < numColumns; j++)
+        {
+          formattedTable += String.format("|%12.12s|", data.get(i).get(j));
+        }
+        formattedTable += "\n";
+      }
+      if (data.isEmpty()) System.out.println("No one is in this class");
+      else System.out.println(formattedTable);
     }
 
     public String getFirstRecord()

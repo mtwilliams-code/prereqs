@@ -35,7 +35,7 @@ public class App
         String input;
         Pattern classMembersRegex = Pattern.compile("who is in (\\w*) (\\d*)\\.(\\d*)");
         Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w*) (\\d*)\\.(\\d*)");
-        System.out.print("Enter Query: ");
+        System.out.print("\nEnter Query: ");
         while (!(input = scanner.nextLine().toLowerCase()).equalsIgnoreCase("end")) {
             Matcher m1 = classMembersRegex.matcher(input); 
             Matcher m2 = notQualifiedRegex.matcher(input); 
@@ -46,11 +46,12 @@ public class App
                 System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber>        :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
             }
             else if (m1.find()) {
-                System.out.println("You want to know who is in " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + "? Too bad. That's not implemented yet.");
+                System.out.println("In " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + ":");
                 try{
-                    result = conn.namesInClass(m2.group(1) + m2.group(2) + m2.group(3),201410);
+                    result = conn.namesInClass(m1.group(1) + m1.group(2) + m1.group(3),201410);
                 }
                 catch(SQLException e){}
+                result.printData();
             }
             else if (m2.find()) {
                 System.out.println("You want to know who is not qualified for " + m2.group(1) + " " + m2.group(2) + "." + m2.group(3) + "? Too bad. That's not implemented yet.");
