@@ -1,0 +1,57 @@
+Class name,Course Number,PreReq(1),Grade Required(1),PreReq(AND)(2),Grade Required(2),PreReq(Or)(2),Grade Required(2),PreReq(Or)(3),Grade Required(3),PreReq(Or)(4),Grade Required(4),Same time as,Classification
+Programming II,CS130,CS120,C,,,,,,,,,,Freshman
+Computer Org,CS220,CS130 ,C,,,,,,,,,,Sophmore
+Programming Languages,CS352,CS230,C,,,,,,,,,,Junior
+Operating systems ,CS356,CS220,C,,,,,,,,,,Junior
+Intro to Programming using scripitng,CS115,,,,,,,,,,,,Freshman
+Applied Programming Using Scripting,CS116,CS115,C,,,,,,,,,,Freshman
+Programming I,CS120,MATH124,C,,,MATH109,C,MATH185,C,CS115,C,,Freshman
+Object-Oriented Programming,CS230,CS130 ,C,,,,,,,,,,Sophmore
+Language Lab,CS301,CS230,C,,,,,,,,,,Junior
+Contest Programming,CS311,CS130 ,C,,,,,,,,,,Sophmore
+Mobile Application Development,CS315,IT220,C,CS116,C,CS120,C,,,,,,Shopmore
+Advanced Moblie Apllication Development,CS316,IT220,C,CS230,C,CS315,C,,,,,,Junior
+Human-Computer Interaction,CS330,,,,,,,,,,,,Junior
+Design and Analysis of Algorithms,CS332,CS130 ,C,MATH227,C,,,,,,,,Junior
+Numerical Methods,CS341,MATH186,C,CS120,C,,,,,,,,Sophmore
+Theory of Computation,CS365,CS220,C,CS331,C,,,,,,,,Junior
+Software Engineering I,CS374,CS230,C,,,,,,,,,,Sophmore
+Software Engineering II,CS375,CS374,C,,,,,,,,,,Junior
+Computer Graphics,CS381,CS220,C,MATH185,C,,,,,,,,Junior
+Numerical Analysis,CS442,CS341,C,MATH325,C,,,,,,,MATH442,Senior
+Introduction Artificial Intelligence,CS467,CS332,C,,,,,,,,,,Senior
+Introduction to Digital Enterainment,DET210,,,,,,,,,,,,Freshman
+Introduction to 3D Modeling,DET220,,,,,,,,,,,,Freshman
+Intoduction to Animation: Keyframes & Pixels,DET230,,,,,,,,,,,,Freshman
+Digital Entertainment Technology II,DET310,DET210,C,,,,,,,,,,Freshman
+Advanced 3D modeling,DET320,DET220,C,,,,,,,,,,Freshman
+Digital Entertainment Development,DET350,DET210,C,,,,,,,,,,Shopmore
+Digital Entertainment TechnologyIII,DET410,DET310,C,,,,,,,,,,Junior
+Introduction to Moblie Application Development,IT105,,,,,,,,,,,,Freshman
+Introduction to Databases and Database Management,IT220,CS115,C,,,CS120,C,,,,,,Freshman
+Fundamentals of Networkinf Data Communications,IT221,CS115,C,,,CS120,C,,,,,,Freshman
+Web Technologies,IT225,IT220,C,CS116,C,CS120,C,,,,,,Shopmore
+Introduction to Computer and information Security,IT310,IT220,C,,,IT221,C,,,,,,Shopmore
+Database Administration,IT320,IT220,C,,,,,,,,,,Shopmore
+Wed Application Development,IT325,CS130 ,C,,,IT225,C,IT220,c,,,,Shopmore
+Systems integration and Administraion,IT420,All CS and It 100-  and 200-,C,,,,,,,,,,Senior
+Network and Security Administraion,IT415,IT221,C,IT310,C,,,,,,,,Senior
+Advanced Security,IT472,IT320,C,CS230,C,,,,,,,,Senior
+"Cybersecurity Policies, Standards, and Compliance",IT473,IT310,C,,,,,,,,,,Senior
+Topics in Information Tehnology,IT490,IT221,C,CS116,C,CS120,C,IT220,,,,,Senior
+Contemporary Readings inIT,IT501,,,,,,,,,,,,Senior
+IT Severices and Administration,IT610,,,,,,,,,,,,Senior
+It Innovation and Entrpreneurship,IT615,,,,,,,,,,,,Senior
+Infromation Assurance and Control,IT620,,,,,,,,,,,,Senior
+Enterprise Architectures and Systems,IT625,,,,,,,,,,,,Senior
+IT Governance,IT630,,,,,,,,,,,,Senior
+IT Leadership,IT632,,,,,,,,,,,,Senior
+Intership in Global It operations,IT650,,,,,,,,,,,,Senior
+Leading IT innovation in Education: problem Analysis,IT651,,,,,,,,,,,,Senior
+Leading IT innovation in Education: Solution Analysis,IT652,,,,,,,,,,,,Senior
+Work-Prortfolio,IT660,,,,,,,,,,,,Senior
+"Introduction to infromation, Technology, and computing ",ITC110,,,,,,,,,,,,Freshman
+ITC Reasearch,ITC399,,,,,,,,,,,,Shopmore
+Manging Techical Projects,ITC460,,,,,,,,,,,,Senior
+Reflctions on Faith and Work,ITC480,,,,,,,,,,,,Senior
+"Infromation Technology, and Computing Intership",ITC499,,,,,,,,,,,,Senior
