@@ -363,18 +363,20 @@ public class SQL_Connector {
     }
   }
 
-  public String firstNameInClass(String class_code, int term_code) throws SQLException
+  public List firstNameInClass(String class_code, int term_code) throws SQLException
   {
     ResultSet rslt = null;
     Statement stmt = null;
+    List names = new ArrayList();
     try
     {
       stmt = conn.createStatement();
       String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number) = '"+class_code+"' AND Term_Code = "+term_code;
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
-      rslt.next();
-      return rslt.getString(1) + " " + rslt.getString(2);
+      while(rslt.next()) {
+        names.add(rslt.getString(1) + " " + rslt.getString(2));
+      }
     }
     catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -387,6 +389,7 @@ public class SQL_Connector {
         stmt.close();
       }
     }
+    return names;
   }
 
   public String tableFormatter(String query) throws SQLException

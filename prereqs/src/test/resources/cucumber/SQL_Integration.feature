@@ -43,7 +43,7 @@ Examples:
     Then the first name should be "Sherry Colquitt"
 
   Scenario: Test the table formatters output
-    Given an arbitrary query
+    Given the app executes an arbitrary query
     And the app connects to the "RECORDS" database on the server
-    Then something outputs
+    Then something should be printed
 
