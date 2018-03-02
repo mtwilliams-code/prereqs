@@ -15,6 +15,7 @@ import com.blinkendorf.app.SQL_Connector;
 public class App 
 {
     private static Scanner scanner = new Scanner( System.in );
+    private static Data result;
     public static void main( String[] args )
     {
         SQL_Connector conn = null;
@@ -47,14 +48,14 @@ public class App
             else if (m1.find()) {
                 System.out.println("You want to know who is in " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + "? Too bad. That's not implemented yet.");
                 try{
-                conn.namesInClass(m1.group(1) + m1.group(2) + m1.group(3),201410);
+                    result = conn.namesInClass(m2.group(1) + m2.group(2) + m2.group(3),201410);
                 }
                 catch(SQLException e){}
             }
             else if (m2.find()) {
                 System.out.println("You want to know who is not qualified for " + m2.group(1) + " " + m2.group(2) + "." + m2.group(3) + "? Too bad. That's not implemented yet.");
                 try{
-                conn.namesInClass(m2.group(1) + m2.group(2) + m2.group(3),201410);
+                    result = conn.namesInClass(m2.group(1) + m2.group(2) + m2.group(3),201410);
                 }
                 catch(SQLException e){}
             }

@@ -47,15 +47,10 @@ Examples:
     And the app connects to the "RECORDS" database on the server
     Then something should be printed
 
-  Scenario: Test the table formatters output
-    Given the app executes an arbitrary query
-    And the app connects to the "RECORDS" database on the server
-    Then something should be printed
-    
-  Scenario: Test the CLASS_TAKEN function
-    Given the class code "CS374"
-    And the section code "01"
-    And the term code "201410"
-    And the app connects to the "RECORDS" database on the server
-    When the app runs the new query
-    Then the list of who have taken the class will be printed
+#  Scenario: Test the CLASS_TAKEN function
+#    Given the class code "CS374"
+#    And the section code "01"
+#    And the term code "201410"
+#    And the app connects to the "RECORDS" database on the server
+#    When the app runs the new query
+#    Then the list of who have taken the class will be printed

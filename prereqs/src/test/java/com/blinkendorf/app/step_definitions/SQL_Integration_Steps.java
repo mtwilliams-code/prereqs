@@ -14,6 +14,7 @@ import com.blinkendorf.app.SQL_Connector;
 import java.io.File;
 import java.net.*;
 import java.sql.ResultSet;
+import java.sql.SQLRecoverableException;
 
 public class SQL_Integration_Steps {
 
@@ -21,6 +22,8 @@ public class SQL_Integration_Steps {
   String class_code;
   int term_code;
   String first_query;
+  String section_code;
+  Data result;
 
   @Given("^a mySQL server is running on the local machine$")
   public void a_mySQL_server_is_running_on_the_local_machine() throws Exception {
@@ -118,24 +121,16 @@ public class SQL_Integration_Steps {
     class_code = arg1;
   }
 
-  @Given("^the term code \"([^\"]*)\"$")
-  public void the_term_code(int arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
-    term_code = arg1;
-  }
-
   @When("^the app runs the query$")
   public void the_app_runs_the_query() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    Data rs = conn.namesInClass(class_code, term_code);
-    first_query = rs.getFirstRecord();
-
+    result = conn.namesInClass(class_code, term_code);
   }
 
   @Then("^the first name should be \"([^\"]*)\"$")
   public void the_first_name_should_be(String arg1) throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    assertEquals(arg1, first_query);
+    assertEquals(arg1, result.getFirstRecord());
   }
 
   @Given("^the app executes an arbitrary query$")
@@ -152,22 +147,29 @@ public class SQL_Integration_Steps {
   }
 
   @Given("^the section code \"([^\"]*)\"$")
-  public void the_term_code(int arg1) throws Exception {
+  public void the_section_code(String arg1) throws Exception {
     // Write code here that turns the phrase above into concrete actions
     section_code = arg1;
+  }
+
+  @Then("^the list of who have taken the class will be printed$")
+  public void something_else_outputs() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    System.out.print(conn.printQuery(first_query));
+    assumeTrue(true);
+  }
+
+  @Given("^the term code \"([^\"]*)\"$")
+  public void the_term_code(int arg1) throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    term_code = arg1;
   }
 
   @When("^the app runs the new query$")
   public void the_app_runs_the_new_query() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    first_query = conn.firstNameInClass(class_code,term_code);
-  }
-  
-  @Then("^the list of who have taken the class will be printed$")
-  public void something_else_outputs() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
-    System.out.print(conn.tableFormatter(first_query));
-    assumeTrue(true);
+    result = conn.namesInClass(class_code, term_code);
+    first_query = result.getFirstRecord();
   }
 
 }
