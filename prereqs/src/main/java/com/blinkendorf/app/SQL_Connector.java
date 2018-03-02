@@ -353,6 +353,10 @@ public class SQL_Connector {
         +"PRIMARY KEY (Pidm),"
         +"INDEX index2 (Subject_Code ASC , Course_Number ASC))";
       stmt.executeUpdate(query);
+      query = "DROP function IF EXISTS `CLASS_TAKEN`"
+      stmt.executeUpdate(query);
+      query = "DELIMITER $$ USE `RECORDS`$$ CREATE DEFINER=`root`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE CHAR, CLASS_CODE VARCHAR(10)) RETURNS char(1) CHARSET latin1 BEGIN DECLARE done INT DEFAULT FALSE; DECLARE CCode VARCHAR(10) default ''; DECLARE FGrade VARCHAR(2); DECLARE OUTPUT CHAR DEFAULT 'N'; DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN); DECLARE CONTINUE handler for NOT FOUND SET done = true; OPEN CLASSES; start_loop: loop fetch CLASSES into CCode, FGrade; if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';  leave start_loop;  end if; if done then  leave start_loop;  end if; end loop; CLOSE CLASSES; RETURN OUTPUT; END$$ DELIMITER";
+      stmt.executeUpdate(query);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
