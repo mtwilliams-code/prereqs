@@ -1,4 +1,6 @@
 .idea/*
 /prereqs/target/*
 /prereqs/bin/*
-
+/target/*
+/bin/*
+.vscode/*

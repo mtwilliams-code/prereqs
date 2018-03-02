@@ -7,7 +7,8 @@ import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
-
+import java.util.ArrayList;
+import com.blinkendorf.app.Data;
 import com.blinkendorf.app.SQL_Connector;
 
 import java.io.File;
@@ -126,7 +127,9 @@ public class SQL_Integration_Steps {
   @When("^the app runs the query$")
   public void the_app_runs_the_query() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    first_query = conn.firstNameInClass(class_code,term_code);
+    Data rs = conn.namesInClass(class_code, term_code);
+    first_query = rs.getFirstRecord();
+
   }
 
   @Then("^the first name should be \"([^\"]*)\"$")
@@ -135,16 +138,16 @@ public class SQL_Integration_Steps {
     assertEquals(arg1, first_query);
   }
 
-  @Given("^an arbitrary query$")
+  @Given("^the app executes an arbitrary query$")
   public void an_arbitrary_query() throws Exception {
       // Write code here that turns the phrase above into concrete actions
       first_query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 115";
   }
 
-  @Then("^something outputs$")
+  @Then("^something should be printed$")
   public void something_outputs() throws Exception {
       // Write code here that turns the phrase above into concrete actions
-      System.out.print(conn.tableFormatter(first_query));
+      System.out.print(conn.printQuery(first_query));
       assumeTrue(true);
   }
 

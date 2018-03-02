@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.DatabaseMetaData;
 
 public class SQL_Connector {
@@ -64,13 +66,13 @@ public class SQL_Connector {
   * @return      the image at the specified URL
   */
   public SQL_Connector() throws Exception {
-    System.out.println("Connecting database...");
+    // System.out.println("Connecting database...");
     try {
       //I haven't the slightest idea what this does but I think its necessary
       Class.forName("com.mysql.jdbc.Driver");
       conn = DriverManager.getConnection(url, username, password);
       // Do something with the Connection
-      System.out.println("Database connected!");
+      // System.out.println("Database connected!");
 
     } catch (SQLException ex) {
       // handle any errors
@@ -95,7 +97,7 @@ public class SQL_Connector {
   * @return      the image at the specified URL
   */
   public SQL_Connector(String url, String username, String password) throws Exception {
-    System.out.println("Connecting database...");
+    // System.out.println("Connecting database...");
     this.url = url;
     this.username = username;
     this.password = password;
@@ -103,7 +105,7 @@ public class SQL_Connector {
       Class.forName("com.mysql.jdbc.Driver");
       conn = DriverManager.getConnection(url, username, password);
       // Do something with the Connection
-      System.out.println("Database connected!");
+      // System.out.println("Database connected!");
 
     } catch (SQLException ex) {
       // handle any errors
@@ -363,19 +365,39 @@ public class SQL_Connector {
     }
   }
 
-  public List firstNameInClass(String class_code, int term_code) throws SQLException
+  /** 
+   * This is just a small function to make a pre-written query which returns all of the people in a certain class
+   * (If possible we should rework this to not append the information together but instead passs each individually).
+   * 
+   * @param class_code The code of the class, consisting of subject code + subject number + section number all appended together.
+   * @param term_code The term code for the class you are interested in.
+   * @return A Data object containing the information from the query.
+   */
+  public Data namesInClass(String class_code, int term_code) throws SQLException
   {
     ResultSet rslt = null;
     Statement stmt = null;
-    List names = new ArrayList();
+    Data names = new Data();
+    ResultSetMetaData rsmd = null;
+    int numColumns = 0;
     try
     {
       stmt = conn.createStatement();
-      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        names.appendColumn(rsmd.getColumnLabel(i));
+      }
+
       while(rslt.next()) {
-        names.add(rslt.getString(1) + " " + rslt.getString(2));
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(rslt.getString(1));
+        a.add(rslt.getString(2));
+        names.add(a);
+        // names.add(rslt.getString(1) + " " + rslt.getString(2));
       }
     }
     catch (SQLException e) {
@@ -392,7 +414,15 @@ public class SQL_Connector {
     return names;
   }
 
-  public String tableFormatter(String query) throws SQLException
+  public Data makeQuery(String query) throws SQLException 
+  {
+    Data d = new Data();
+
+
+    return d;
+
+  }
+  public String printQuery(String query) throws SQLException
   {
     ResultSet rslt = null;
     ResultSetMetaData rsmd = null;
