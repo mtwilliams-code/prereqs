@@ -159,4 +159,11 @@ public class SQL_Integration_Steps {
     // Write code here that turns the phrase above into concrete actions
     first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm, 'CS230','C') FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 374"
   }
+  
+  @Then("^the list of who have taken the class will be printed$")
+  public void something_else_outputs() throws Exception {
+    // Write code here that turns the phrase above into concrete actions
+    System.out.print(conn.tableFormatter(first_query));
+    assumeTrue(true);
+  }
 }
