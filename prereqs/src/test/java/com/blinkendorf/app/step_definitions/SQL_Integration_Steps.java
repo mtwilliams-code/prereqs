@@ -168,8 +168,7 @@ public class SQL_Integration_Steps {
   @When("^the app runs the new query$")
   public void the_app_runs_the_new_query() throws Exception {
     // Write code here that turns the phrase above into concrete actions
-    result = conn.namesInClass(class_code, term_code);
-    first_query = result.getFirstRecord();
+    first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm,'MATH124','C') AS MATH124 FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 120 AND Section_Number = '02' AND Term_Code = 201610";
   }
 
 }

@@ -35,10 +35,20 @@ public class SQL_Connector {
     String query;
     ResultSet rslt = null;
     try {
+      query = "set unique_checks = 0;";
+      stmt.executeUpdate(query);
+      query = "set foreign_key_checks = 0;";
+      stmt.executeUpdate(query);
+      query = "set sql_log_bin=0;";
+      stmt.executeUpdate(query);
+      query = "set autocommit = 0;";
+      stmt.executeUpdate(query);
       query = "load data local infile '" + file.toPath() + "' into table REGISTRATION columns terminated by ',' "
       + "enclosed by '\"' escaped by '\"' "
       + "lines terminated by '\n' "
       + "ignore 1 lines";
+      stmt.executeUpdate(query);
+      query = "commit";
       stmt.executeUpdate(query);
       rslt = stmt.getResultSet();
     } catch (SQLException e) {
@@ -353,9 +363,29 @@ public class SQL_Connector {
         +"PRIMARY KEY (Pidm),"
         +"INDEX index2 (Subject_Code ASC , Course_Number ASC))";
       stmt.executeUpdate(query);
-      query = "DROP function IF EXISTS `CLASS_TAKEN`"
+      query = "DROP function IF EXISTS `CLASS_TAKEN`";
       stmt.executeUpdate(query);
-      query = "DELIMITER $$ USE `RECORDS`$$ CREATE DEFINER=`root`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE CHAR, CLASS_CODE VARCHAR(10)) RETURNS char(1) CHARSET latin1 BEGIN DECLARE done INT DEFAULT FALSE; DECLARE CCode VARCHAR(10) default ''; DECLARE FGrade VARCHAR(2); DECLARE OUTPUT CHAR DEFAULT 'N'; DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN); DECLARE CONTINUE handler for NOT FOUND SET done = true; OPEN CLASSES; start_loop: loop fetch CLASSES into CCode, FGrade; if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';  leave start_loop;  end if; if done then  leave start_loop;  end if; end loop; CLOSE CLASSES; RETURN OUTPUT; END$$ DELIMITER";
+      query = "CREATE DEFINER=`java`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"+ 
+              "RETURNS char(1) CHARSET latin1\n" + 
+              "BEGIN\n" + 
+              "DECLARE done INT DEFAULT FALSE;\n" + 
+              "DECLARE CCode VARCHAR(10) default '';\n" + 
+              "DECLARE FGrade VARCHAR(2);\n" + 
+              "DECLARE OUTPUT CHAR DEFAULT 'N';\n" + 
+              "DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN);\n" + 
+              "DECLARE CONTINUE handler for NOT FOUND SET done = true;\n" + 
+              "OPEN CLASSES;\n" + 
+              "start_loop: loop\n" + 
+              "fetch CLASSES into CCode, FGrade;\n" +
+              "if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';\n" +
+              "leave start_loop;\n" + 
+              "end if;\n" + 
+              "if done then leave start_loop;\n" + 
+              "end if;\n" + 
+              "end loop;\n" + 
+              "CLOSE CLASSES;\n" + 
+              "RETURN OUTPUT;\n" + 
+              "END";
       stmt.executeUpdate(query);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
