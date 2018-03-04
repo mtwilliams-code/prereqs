@@ -448,14 +448,6 @@ public class SQL_Connector {
     return names;
   }
 
-  public Data makeQuery(String query) throws SQLException 
-  {
-    Data d = new Data();
-
-
-    return d;
-
-  }
 
   /**
    * Deprecated
@@ -504,6 +496,9 @@ public class SQL_Connector {
     } 
   }
 
+  /**
+   * Takes class details and queries database for all the prereqs of the class.
+   */
   public Data getPrereqs(String subjectCode, String subjectNum)
   {
     Data d = new Data();

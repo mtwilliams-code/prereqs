@@ -40,7 +40,8 @@ public class Data {
 
   public ArrayList<String> getRow(int i)
   {
-    ArrayList<String> rs = 
+    ArrayList<String> rs = data.get(i);
+    return rs;
   }
 
   public void printData()
