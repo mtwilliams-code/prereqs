@@ -23,7 +23,7 @@
 > A section code is a 2 digit identifier that tells which instance of a course a class is. (ie .01, .H1)
 
 ### Term Code
-> A term code is a 6 digit code which tells which term a course takes place. ( ie "201710" is the term code for Fall 2016 )
+> A term code is a 6 digit code which tells which term a course takes place. ( ie "201710" is the term code for Fall 2016, note the year designation in the code is made by fiscal not calendar year.  )
 
 ### Classes
 > A class is specific course that is offered. It has a subject code, a section code and a course code. (ie CS374.01)
