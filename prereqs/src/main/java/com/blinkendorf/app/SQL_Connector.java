@@ -510,13 +510,18 @@ public class SQL_Connector {
 
     return d;
   }
+<<<<<<< HEAD
   
 private String classTakenQuery (Data prereq_list, String class_code, String course_number, String section_num, String term_code)
+=======
+
+  private String classTakenQuery (Data prereq_list, String subject_code, String course_number, String section_num, int term_code)
+>>>>>>> c8b8f34d78da1aae7d0017222b173702c3ae8cac
   {
-    class_code = class_code+course_number+section_num;
+    String class_code = subject_code+course_number+section_num;
     String ttr = "SELECT First_Name, Last_Name";
 
-    ttr += "FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+    ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
     return ttr;
   }
 
