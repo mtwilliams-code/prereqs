@@ -22,6 +22,7 @@
 ### Section Code
 > A section code is a 2 digit identifier that tells which instance of a course a class is. (ie .01, .H1)
 
+
 ### Classes
 > A class is specific course that is offered. It has a subject code, a section code and a course code. (ie CS374.01)
 
