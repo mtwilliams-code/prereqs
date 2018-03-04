@@ -33,8 +33,8 @@ public class App
 
         System.out.println("Hello. What would you like to do? You may enter 'help' for options: ");
         String input;
-        Pattern classMembersRegex = Pattern.compile("who is in (\\w*) (\\d*)\\.(\\d*)");
-        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w*) (\\d*)\\.(\\d*)");
+        Pattern classMembersRegex = Pattern.compile("who is in (\\w*) (\\d*)\\.(\\w*)");
+        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w*) (\\d*)\\.(\\w*)");
         System.out.print("\nEnter Query: ");
         while (!(input = scanner.nextLine().toLowerCase()).equalsIgnoreCase("end")) {
             Matcher m1 = classMembersRegex.matcher(input); 
@@ -48,7 +48,7 @@ public class App
             else if (m1.find()) {
                 System.out.println("In " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + ":");
                 try{
-                    result = conn.namesInClass(m1.group(1) + m1.group(2) + m1.group(3),201410);
+                    result = conn.namesInClass(m1.group(1) + m1.group(2) + m1.group(3),201710);
                 }
                 catch(SQLException e){}
                 result.printData();

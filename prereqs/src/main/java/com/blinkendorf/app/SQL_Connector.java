@@ -456,6 +456,10 @@ public class SQL_Connector {
     return d;
 
   }
+
+  /**
+   * Deprecated
+   */
   public String printQuery(String query) throws SQLException
   {
     ResultSet rslt = null;
@@ -498,6 +502,13 @@ public class SQL_Connector {
         stmt.close();
       }
     } 
+  }
+
+  public Data getPrereqs(String subjectCode, String subjectNum)
+  {
+    Data d = new Data();
+
+    return d;
   }
 
 }
