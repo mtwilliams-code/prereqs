@@ -498,12 +498,26 @@ public class SQL_Connector {
 
   /**
    * Takes class details and queries database for all the prereqs of the class.
+   * 
+   * @param subjectCode The subject code for the class, like "CS" or "MATH"
+   * @param subjectNum The class number, like "231" or "410"
+   * 
+   * @return A Data object containing the prereqs
    */
   public Data getPrereqs(String subjectCode, String subjectNum)
   {
     Data d = new Data();
 
     return d;
+  }
+  
+private String classTakenQuery (Data prereq_list, String class_code, String course_number, String section_num, String term_code)
+  {
+    class_code = class_code+course_number+section_num;
+    String ttr = "SELECT First_Name, Last_Name";
+
+    ttr += "FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+    return ttr;
   }
 
 }
