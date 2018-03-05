@@ -520,59 +520,59 @@ public class SQL_Connector {
     return ttr;
   }
   
-  public String PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
-      
-    ResultSet rslt = null;
-    Statement stmt = null;
-    Data list  = new Data();
-    Data pre = new Data();
-    ResultSetMetaData rsmd = null;
-    int numColumns = 0;
-    // call get prereqs
-    // this returns a data object that is a list of
-    pre = getPrereqs(String subjectCode, String subjectNum);
+public String PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
+  ResultSet rslt = null;
+  Statement stmt = null;
+  Data list  = new Data();
+  Data pre = new Data();
+  ResultSetMetaData rsmd = null;
+  int numColumns = 0;
+  // call get prereqs
+  // this returns a data object that is a list of
+  pre = getPrereqs(subjectCode, subjectNum);
 
-    // query the database with John's string
-    // he's writing a query and I need to write the stuff that passes to the db and runs it
-    // ClassTakenQuery will give me a string to run
+  // query the database with John's string
+  // he's writing a query and I need to write the stuff that passes to the db and runs it
+  // ClassTakenQuery will give me a string to run
+  
+  String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
 
-    String query = classTakenQuery(Data pre, String subjectCode, String subjectNum, String sectionCode, int termCode);
-
-    try {
-      stmt = conn.createStatement();
-      stmt.executeQuery(query);
-      rslt = stmt.getResultSet();
-      rsmd = rslt.getMetaData();
-      numColumns = rsmd.getColumnCount();
-      for (int i = 1; i <= numColumns; i++) {
-        list.appendColumn(rsmd.getColumnLabel(i));
-      }
-      while(rslt.next()) {
-        ArrayList<String> a = new ArrayList<String>();
-        a.add(rslt.getString(1));
-        a.add(rslt.getString(2));
-        list.add(a);
-        // names.add(rslt.getString(1) + " " + rslt.getString(2));
-      }
+  try {
+    stmt = conn.createStatement();
+    stmt.executeQuery(query);
+    rslt = stmt.getResultSet();
+    rsmd = rslt.getMetaData();
+    numColumns = rsmd.getColumnCount();
+    for (int i = 1; i <= numColumns; i++) {
+      list.appendColumn(rsmd.getColumnLabel(i));
     }
-    catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-      throw e;
+    while(rslt.next()) {
+      ArrayList<String> a = new ArrayList<String>();
+      a.add(rslt.getString(1));
+      a.add(rslt.getString(2));
+      list.add(a);
+      // names.add(rslt.getString(1) + " " + rslt.getString(2));
     }
-    finally {
-      if (stmt != null) {
-        stmt.close();
-      }
-    }
-
-    // Store all the returns in a Data object
-    // limit it to show firstName, lastName, list of classes where N.
-    
-
-    // return the data object
-    return list;
   }
+  catch (SQLException e) {
+    System.out.println("SQLException: " + e.getMessage());
+    System.out.println("SQLState: " + e.getSQLState());
+    System.out.println("VendorError: " + e.getErrorCode());
+    throw e;
+  }
+  finally {
+    if (stmt != null) {
+      stmt.close();
+    }
+  }
+
+  // Store all the returns in a Data object
+  // limit it to show firstName, lastName, list of classes where N.
+
+
+
+  // return the data object
+  return list;
+}
 
 }
