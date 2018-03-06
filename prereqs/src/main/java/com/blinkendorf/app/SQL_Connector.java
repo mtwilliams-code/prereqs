@@ -520,7 +520,7 @@ public class SQL_Connector {
     return ttr;
   }
   
-public String PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
+public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
   ResultSet rslt = null;
   Statement stmt = null;
   Data list  = new Data();
