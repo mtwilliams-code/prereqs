@@ -495,7 +495,7 @@ public class SQL_Connector {
    *
    * @return A Data object that lists ineligible students and the classes they are missing to be eligible.
    */
-    public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
+  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
     Data list = new Data();
@@ -513,7 +513,33 @@ public class SQL_Connector {
     // ClassTakenQuery will give me a string to run
     String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
 
-    list = runQuery(query);
+    try {
+      stmt = conn.createStatement();
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        list.appendColumn(rsmd.getColumnLabel(i));
+      }
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+
+        for (int i = 1; i <= numColumns; i++) {
+          a.add(rslt.getString(i));
+        }
+        list.add(a);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
 
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
@@ -532,10 +558,11 @@ public class SQL_Connector {
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
       for (int j = 1; j <= numColumns; j++) {
-        if (student.get(j) == "N") {
+        if (student.get(j).equalsIgnoreCase("N")) {
           newStudent.add(listColumnNames.get(j));
         }
       }
+
       if (newStudent.size() > 1) {
         newList.add(newStudent);
       }
