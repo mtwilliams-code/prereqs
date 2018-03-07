@@ -33,9 +33,9 @@ public class App
 
         System.out.println("Hello. What would you like to do? You may enter 'help' for options: ");
         String input;
-        Pattern classMembersRegex = Pattern.compile("who is in (\\w{2,4}) (\\d{3})\\.(\\w{2,3})");
-        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w{2,4}) (\\d{3})\\.(\\w{2,3})");
-        Pattern prereqsForRegex = Pattern.compile("what are the prereqs for (\\w{2,4}) (\\d{3})");
+        Pattern classMembersRegex = Pattern.compile("who is in (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
+        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
+        Pattern prereqsForRegex = Pattern.compile("what are the prereqs for (\\w{2,4})\\s?(\\d{3})");
         System.out.print("\nEnter Query: ");
         while (!(input = scanner.nextLine().toLowerCase()).equalsIgnoreCase("end")) {
             Matcher m1 = classMembersRegex.matcher(input); 

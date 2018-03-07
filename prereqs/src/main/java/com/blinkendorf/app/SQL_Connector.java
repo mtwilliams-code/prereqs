@@ -59,7 +59,7 @@ public class SQL_Connector {
       stmt.executeUpdate(query);
       query = "set autocommit = 0;";
       stmt.executeUpdate(query);
-      query = "load data local infile '" + file.toPath() + "' into table " +table+ " columns terminated by ',' "
+      query = "load data local infile '" + file.toPath() + "' into table " + table + " columns terminated by ',' "
           + "enclosed by '\"' escaped by '\"' " + "lines terminated by '\n' " + "ignore 1 lines";
       stmt.executeUpdate(query);
       query = "commit";
@@ -400,7 +400,8 @@ public class SQL_Connector {
     int numColumns = 0;
     try {
       stmt = conn.createStatement();
-      String query = "SELECT Class_Code, Prereq_Code from PREREQS where Class_Code = '"+subjectCode+subjectNum+"'";
+      String query = "SELECT Class_Code, Prereq_Code from PREREQS where Class_Code = '" + subjectCode + subjectNum
+          + "'";
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
       rsmd = rslt.getMetaData();
@@ -432,18 +433,17 @@ public class SQL_Connector {
   /**
    * Creates pre-formatted prereq table for scrapedPrereqs.csv
    */
-  public void createPrereqTable() throws SQLException
-  {
+  public void createPrereqTable() throws SQLException {
     Statement stmt = null;
     try {
       stmt = conn.createStatement();
       String query = "DROP TABLE IF EXISTS PREREQS";
       stmt.executeUpdate(query);
-      query = "CREATE TABLE PREREQS ( Class_Code VARCHAR(7) NOT NULL, "
-      + "Prereq_Code VARCHAR(45) NOT NULL, "
-      + "PRIMARY KEY(Class_Code,Prereq_Code))";
+      query = "CREATE TABLE PREREQS ( Class_Code VARCHAR(7) NOT NULL, " + "Prereq_Code VARCHAR(45) NOT NULL, "
+          + "PRIMARY KEY(Class_Code,Prereq_Code))";
       stmt.executeUpdate(query);
-    } catch (SQLException e) {
+    } catch (SQLException e) 
+    {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
@@ -468,16 +468,22 @@ public class SQL_Connector {
       int term_code) {
     String class_code = subject_code + course_number + section_num;
     String ttr = "SELECT First_Name, Last_Name";
-
+    for (int i = 0; i < prereq_list.getRowCount(); i++)
+    {
+      ttr += ", CLASS_TAKEN(PIDM, 'C', '"+subject_code+course_number+"') AS '"+subject_code+course_number+"'";
+    }
     ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '" + class_code
         + "' AND Term_Code = " + term_code;
     return ttr;
   }
 
-public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
+  /**
+   * 
+   */
+  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
-    Data list  = new Data();
+    Data list = new Data();
     Data newList = new Data();
 
     ResultSetMetaData rsmd = null;
@@ -501,23 +507,20 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
       for (int i = 1; i <= numColumns; i++) {
         list.appendColumn(rsmd.getColumnLabel(i));
       }
-      while(rslt.next()) {
+      while (rslt.next()) {
         ArrayList<String> a = new ArrayList<String>();
-        
-        for( int i = 1; i <= numColumns; i++)
-        {
+
+        for (int i = 1; i <= numColumns; i++) {
           a.add(rslt.getString(i));
         }
         list.add(a);
       }
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
       throw e;
-    }
-    finally {
+    } finally {
       if (stmt != null) {
         stmt.close();
       }
@@ -531,32 +534,27 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
     // this pulls the first row, it is just the class names
     ArrayList<String> listColumnNames = list.getRow(0);
 
-    int rows = list.getRowCount;
+    int rows = list.getRowCount();
 
     // here I am going to loop through the height of the data object
-    for( int i = 1; i <= rows; i++)
-    {
+    for (int i = 1; i <= rows; i++) {
       // the plan here is only add students to the new data object if they have an "N"
       ArrayList<String> student = list.getRow(i);
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
-      for( int j = 1; j <= numColumns; j++)
-      {
-        if ( student.get(j) == "N")
-        {
-          newStudent.add(listColumnNames.get(j))
+      for (int j = 1; j <= numColumns; j++) {
+        if (student.get(j) == "N") {
+          newStudent.add(listColumnNames.get(j));
         }
       }
-      if( newStudent.size() > 1 )
-      {
+      if (newStudent.size() > 1) {
         newList.add(newStudent);
       }
 
     }
-    if( newList.isEmpty )
-    {
+    if (newList.isEmpty()) {
       ArrayList<String> errorThing = new ArrayList<String>();
-      errorThing.add("All students met the required prerequisites for this course. ")
+      errorThing.add("All students met the required prerequisites for this course. ");
       newList.add(errorThing);
     }
     // return the data object
@@ -569,8 +567,7 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
    * @param query A String representing the query to be run
    * @return A Data object containing the results
    */
-  public Data runQuery(String query) throws SQLException
-  {
+  public Data runQuery(String query) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
     Data result = new Data();
@@ -588,8 +585,7 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
       }
       while (rslt.next()) {
         ArrayList<String> a = new ArrayList<String>();
-        for (int i = 1; i <= numColumns; i++) 
-        {
+        for (int i = 1; i <= numColumns; i++) {
           a.add(rslt.getString(i));
         }
         result.add(a);
@@ -611,6 +607,5 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
     // return the data object
     return result;
   }
-
 
 }

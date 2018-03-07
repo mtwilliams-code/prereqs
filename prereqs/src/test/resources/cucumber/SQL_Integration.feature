@@ -39,15 +39,15 @@ Feature: Integrate with local mySQL database
 
 Examples:
 | filepath                                           | table        | 
-| src/test/resources/data/full/registration_anon.csv | registration |
+| src/test/resources/data/full/anon1810.csv | registration |
 | src/test/resources/data/scrapedPrereqs.csv         | prereqs      |
 
   Scenario: Query for people in a class
-    Given the class code "CS37401"
-    And the term code "201410"
+    Given the class code "CS12001"
+    And the term code "201420"
     And the app connects to the "RECORDS" database on the server
     When the app runs the query
-    Then the first name should be "Sherry Colquitt"
+    Then the first name should be "Anne Luther"
 
   Scenario: Test the table formatters output
     Given the app connects to the "RECORDS" database on the server
