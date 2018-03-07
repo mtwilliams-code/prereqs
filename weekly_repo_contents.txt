@@ -15,3 +15,16 @@ Documentation: README.md
 User Stories:userStories.md
 How to install: README.md
 How to run: README.md
+
+Timestamp (180306 10:40)
+
+Indicate the file/folder in the repo for each of the following items.
+
+Glossary: Wiki 
+Member reflections: MemberReflections
+Status reports: Progress Report
+Code: prereqs
+Documentation: README.md
+User Stories:userStories.md
+How to install: README.md
+How to run: README.md
