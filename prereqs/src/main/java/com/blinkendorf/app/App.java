@@ -44,8 +44,9 @@ public class App
             if (input.equalsIgnoreCase("help")) {
                 System.out.println("You may enter the following commands (caps insensitive):");
                 System.out.println("end        :to exit the program");
-                System.out.println("who is in <subject> <classnumber>.<sectionnumber>        :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
-                System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber>        :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("who is in <subject> <classnumber>.<sectionnumber>                :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber> :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("what are the prereqs for <subject> <classnumber>                 :where <subject> is like 'CS' and <classnumber> is like '274'.");
             }
             else if (m1.find()) {
                 System.out.println("In " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + ":");

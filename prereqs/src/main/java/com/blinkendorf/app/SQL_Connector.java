@@ -315,7 +315,7 @@ public class SQL_Connector {
     int numColumns = 0;
     try {
       stmt = conn.createStatement();
-      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"
+      String query = "SELECT First_Name AS 'First', Last_Name AS 'Last' FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"
           + class_code + "' AND Term_Code = " + term_code;
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
@@ -401,7 +401,7 @@ public class SQL_Connector {
     int numColumns = 0;
     try {
       stmt = conn.createStatement();
-      String query = "SELECT Class_Code, Prereq_Code from PREREQS where Class_Code = '" + subjectCode + subjectNum
+      String query = "SELECT Class_Code AS 'Class', Prereq_Code AS 'Prereq' from PREREQS where Class_Code = '" + subjectCode + subjectNum
           + "'";
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
