@@ -19,7 +19,7 @@ Maven will automatically locate these repositiories and install them in your
 
 Commands that work in our Java app
 ========================
-`who is in <subject> <classnumber>.<sectionnumber>` : where \<subject\> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'. This will give a list of all students enrolled in the section given.
+`who is in <subject> <classnumber>.<sectionnumber>` : where \<subject\> is like 'CS' and \<classnumber\> is like '274' and  \<sectionnumber\> is like '01'. This will give a list of all students enrolled in the section given.
 
 `who is not qualified for <subject> <classnumber>.<sectionnumber>` : This is the primary functionality of our app. It outputs the students that do not meet the prereqs for thw course, and which prereqs they do not meet. 
 
