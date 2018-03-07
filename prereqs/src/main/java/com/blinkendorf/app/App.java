@@ -37,17 +37,20 @@ public class App
         Pattern classMembersRegex = Pattern.compile("who is in (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
         Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
         Pattern prereqsForRegex = Pattern.compile("what are the prereqs for (\\w{2,4})\\s?(\\d{3})");
+        Pattern sectionsOfRegex = Pattern.compile("what sections are there for (\\w{2,4})\\s?(\\d{3})");
         System.out.print("\nEnter Query: ");
         while (!(input = scanner.nextLine().toLowerCase()).equalsIgnoreCase("end")) {
             Matcher m1 = classMembersRegex.matcher(input); 
             Matcher m2 = notQualifiedRegex.matcher(input); 
             Matcher m3 = prereqsForRegex.matcher(input);
+            Matcher m4 = sectionsOfRegex.matcher(input);
             if (input.equalsIgnoreCase("help")) {
                 System.out.println("You may enter the following commands (caps insensitive):");
-                System.out.println("end        :to exit the program");
+                System.out.println("end                                                              :to exit the program");
                 System.out.println("who is in <subject> <classnumber>.<sectionnumber>                :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
                 System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber> :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
                 System.out.println("what are the prereqs for <subject> <classnumber>                 :where <subject> is like 'CS' and <classnumber> is like '274'.");
+                System.out.println("what sections are there for <subject> <classnumber>              :where <subject> is like 'CS' and <classnumber> is like '274'.");
             }
             else if (m1.find()) {
                 System.out.println("In " + m1.group(1).toUpperCase() + " " + m1.group(2) + "." + m1.group(3) + ":");
@@ -67,6 +70,7 @@ public class App
                 System.out.println("Students who have unsatisfied prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+"."+m2.group(3)+", along with the classes they are missing:");
                 try{
                     result = conn.PrereqCheck(m2.group(1).toUpperCase(),m2.group(2),m2.group(3),TERM_CODE);
+                    System.out.println(result.getRowCount()+"/"+conn.namesInClass(m2.group(1).toUpperCase()+m2.group(2)+m2.group(3),TERM_CODE).getRowCount()+" students in the class do not meet the prerequisites.");
                 }
                 catch(SQLException e){}
                 result.printData();
@@ -79,8 +83,16 @@ public class App
                 catch(SQLException e){}
                 result.printData();
             }
+            else if (m4.find()) {
+                System.out.println("Sections for "+m4.group(1).toUpperCase()+" "+m4.group(2)+":");
+                try{
+                    result = conn.getSections(m4.group(1).toUpperCase(),m4.group(2),TERM_CODE);
+                }
+                catch(SQLException e){}
+                result.printData();
+            }
             else System.out.println("I'm sorry, I didn't understand that. Please enter 'help' for information on acceptable queries.");
-            System.out.print("Enter Query: ");
+            System.out.print("\nEnter Query: ");
         }
 
     }

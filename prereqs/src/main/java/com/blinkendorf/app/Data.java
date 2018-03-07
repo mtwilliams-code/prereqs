@@ -66,21 +66,27 @@ public class Data {
     String formattedTable = "";
     if (!c_titles.isEmpty()) {
       numColumns = c_titles.size();
-      formattedTable += String.format("|%18.18s|", c_titles.get(0));
+      formattedTable += String.format("|%12.12s|", c_titles.get(0));
       for (int i = 1; i < numColumns; i++) {
-        formattedTable += String.format("|%18.18s|", c_titles.get(i));
+        formattedTable += String.format("|%12.12s|", c_titles.get(i));
       }
     }
     formattedTable += "\n";
     for (int i = 0; i < data.size(); i++) {
-      formattedTable += String.format("|%18.18s|", data.get(i).get(0));
+      String format;
+      int temp;
+      if ((temp = data.get(i).get(0).length()) > 12) format = "|%"+temp+"."+temp+"s|";
+      else format = "|%"+12+"."+12+"s|";
+      formattedTable += String.format("|%12.12s|", data.get(i).get(0));
       for (int j = 1; j < data.get(i).size(); j++) {
-        formattedTable += String.format("|%18.18s|", data.get(i).get(j));
+        if ((temp = data.get(i).get(j).length()) > 12) format = "|%"+temp+"."+temp+"s|";
+        else format = "|%"+12+"."+12+"s|";
+        formattedTable += String.format(format, data.get(i).get(j));
       }
       formattedTable += "\n";
     }
     if (data.isEmpty())
-      System.out.println("No one is in this class");
+      System.out.println("Empty result.");
     else
       System.out.println(formattedTable);
   }
@@ -98,7 +104,7 @@ public class Data {
    * @return Integer with the number of rows.
    */
   public int getRowCount() {
-    return data.get(0).size();
+    return data.size();
   }
 
   /**

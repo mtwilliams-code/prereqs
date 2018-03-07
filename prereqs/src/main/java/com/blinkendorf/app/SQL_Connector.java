@@ -466,7 +466,7 @@ public class SQL_Connector {
    * @param subject_code Subject code for the class, like "CS"
    * @param course_number Course number for the class, like "310"
    * @param section_num Section number for the class, used to find students currently in class. Like "201410"
-   * @return A string representing the query to be run
+   * @return A string representing the query to be run 
    */
   private String classTakenQuery(Data prereq_list, String subject_code, String course_number, String section_num, int term_code) 
   {
@@ -475,7 +475,7 @@ public class SQL_Connector {
     for (int i = 0; i < prereq_list.getRowCount(); i++)
     {
       ttr += ", ";
-      String prereqCode = prereq_list.getColumn(i).get(0);
+      String prereqCode = prereq_list.getColumn(1).get(i);
       String[] prereqCodes = prereqCode.split("or");
       if(prereqCodes.length > 1)
       {
@@ -488,7 +488,7 @@ public class SQL_Connector {
             ttr += " OR ";
             title += " OR ";
           }
-          ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[j]+"')";
+          ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[j]+"') = 'Y'";
           title += prereqCodes[j];
         }
         ttr += " THEN 'Y' ELSE 'N' END AS '"+title+"'";
@@ -650,5 +650,48 @@ public class SQL_Connector {
     // return the data object
     return result;
   }
+
+  public Data getSections(String classCode, String subjectNum, int termCode) throws SQLException
+  {
+    ResultSet rslt = null;
+    Statement stmt = null;
+    Data names = new Data();
+    ResultSetMetaData rsmd = null;
+    int numColumns = 0;
+    try {
+      stmt = conn.createStatement();
+      String query = "SELECT DISTINCT(Section_Number) AS 'Section', COUNT(Pidm) AS 'Classmembers' FROM REGISTRATION WHERE "
+      + "Subject_Code = '" +classCode
+      + "' AND Course_Number = '" +subjectNum
+      + "' AND Term_Code = " + termCode
+      + " GROUP BY Section_Number";
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        names.appendColumn(rsmd.getColumnLabel(i));
+      }
+
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(rslt.getString(1));
+        a.add(rslt.getString(2));
+        names.add(a);
+        // names.add(rslt.getString(1) + " " + rslt.getString(2));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
+    return names;
+  }
+
 
 }
