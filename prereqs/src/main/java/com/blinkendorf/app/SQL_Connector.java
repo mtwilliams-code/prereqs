@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.sql.DatabaseMetaData;
 
 /**
@@ -271,7 +272,7 @@ public class SQL_Connector {
           + "Section_Enrollment VARCHAR(36)," + "Section_Available_Seats VARCHAR(36),"
           + "Section_Schedule_Type VARCHAR(36)," + "Section_Instruction_Method VARCHAR(36),"
           + "Section_Session_Code VARCHAR(36)," + "Ipeds_Ethnic_Code VARCHAR(36)," + "Ipeds_Ethnic_Desc VARCHAR(36),"
-          + "PRIMARY KEY (Pidm)," + "INDEX index2 (Subject_Code ASC , Course_Number ASC))";
+          + "INDEX index2 (Subject_Code ASC , Course_Number ASC))";
       stmt.executeUpdate(query);
       query = "DROP function IF EXISTS `CLASS_TAKEN`";
       stmt.executeUpdate(query);
@@ -464,13 +465,20 @@ public class SQL_Connector {
    * @param section_num Section number for the class, used to find students currently in class. Like "201410"
    * @return A string representing the query to be run
    */
-  private String classTakenQuery(Data prereq_list, String subject_code, String course_number, String section_num,
-      int term_code) {
+  private String classTakenQuery(Data prereq_list, String subject_code, String course_number, String section_num, int term_code) 
+  {
     String class_code = subject_code + course_number + section_num;
     String ttr = "SELECT First_Name, Last_Name";
     for (int i = 0; i < prereq_list.getRowCount(); i++)
     {
-      ttr += ", CLASS_TAKEN(PIDM, 'C', '"+subject_code+course_number+"') AS '"+subject_code+course_number+"'";
+      ttr += ", ";
+      String prereqCode = prereq_list.getColumn(i).get(0);
+      String[] prereqCodes = prereqCode.split("or");
+      for (int j = 0; j < prereqCodes.length; i++) 
+      {
+        if (j != 0) ttr += " OR ";
+        ttr += "CLASS_TAKEN(PIDM, 'C', '"+prereqCodes[j]+"') AS '"+prereqCodes[j]+"'";
+      }
     }
     ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '" + class_code
         + "' AND Term_Code = " + term_code;
@@ -487,7 +495,7 @@ public class SQL_Connector {
    *
    * @return A Data object that lists ineligible students and the classes they are missing to be eligible.
    */
-    public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
+  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
     Data list = new Data();
@@ -505,7 +513,33 @@ public class SQL_Connector {
     // ClassTakenQuery will give me a string to run
     String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
 
-    list = runQuery(query);
+    try {
+      stmt = conn.createStatement();
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        list.appendColumn(rsmd.getColumnLabel(i));
+      }
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+
+        for (int i = 1; i <= numColumns; i++) {
+          a.add(rslt.getString(i));
+        }
+        list.add(a);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
 
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
@@ -524,10 +558,11 @@ public class SQL_Connector {
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
       for (int j = 1; j <= numColumns; j++) {
-        if (student.get(j) == "N") {
+        if (student.get(j).equalsIgnoreCase("N")) {
           newStudent.add(listColumnNames.get(j));
         }
       }
+
       if (newStudent.size() > 1) {
         newList.add(newStudent);
       }
