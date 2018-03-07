@@ -1,21 +1,22 @@
 package com.blinkendorf.app.step_definitions;
 
-import cucumber.api.java.en.*;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.PendingException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
-import java.util.ArrayList;
 import com.blinkendorf.app.Data;
 import com.blinkendorf.app.SQL_Connector;
 
 import java.io.File;
 import java.net.*;
 import java.sql.ResultSet;
-import java.sql.SQLRecoverableException;
+import java.util.ArrayList;
 
+/**
+ * Cucumber step definitions for SQL integration feature
+ */
 public class SQL_Integration_Steps {
 
   SQL_Connector conn;
@@ -47,13 +48,11 @@ public class SQL_Integration_Steps {
 
   @Then("^the connection should be valid$")
   public void the_connection_should_be_valid() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     assertEquals(true, conn.isConnected());
   }
 
   @Given("^the \"([^\"]*)\" database exists on the server$")
   public void the_database_exists_on_the_server(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     // Connection connection = <your java.sql.Connection>
     ResultSet resultSet = conn.getConnection().getMetaData().getCatalogs();
     //iterate each catalog in the ResultSet
@@ -74,6 +73,11 @@ public class SQL_Integration_Steps {
     conn.createRegistrationTable();
   }
 
+  @When("^the app tries to create the prereqs table$")
+  public void the_app_tries_to_create_the_prereqs_table() throws Exception {
+    conn.createPrereqTable();
+  }
+
   @Then("^the database should contain a (?:blank) \"([^\"]*)\" table$")
   public void the_server_should_hold_a_table(String arg1) throws Exception {
     java.sql.ResultSet rs = conn.getAllTableNames();
@@ -88,87 +92,93 @@ public class SQL_Integration_Steps {
 
   @When("^the app tries to create the \"([^\"]*)\" database$")
   public void the_app_tries_to_create_the_database(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     conn.createDatabase(arg1);
   }
 
   @Given("^the app connects to the \"([^\"]*)\" database on the server$")
   public void the_app_connects_to_the_database_on_the_server(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     String url = "jdbc:mysql://localhost:3306/" + arg1;
     String username = "java";
     String password = "Java";
     conn = new SQL_Connector(url, username, password);
   }
 
-  @When("^the app tries to import the data from \"([^\"]*)\"$")
-  public void the_app_tries_to_import_the_data_from_csv(String arg1) throws Exception {
-      // Write code here that turns the phrase above into concrete actions
+  @When("^the app tries to import the data from \"([^\"]*)\" into \"([^\"]*)\"$")
+  public void the_app_tries_to_import_the_data_from_csv(String arg1, String arg2) throws Exception {
       File file = new File(arg1);
-      conn.loadCSV(file);
-
+      conn.loadCSV(file, arg2);
   }
   
   @Then("^the database should be updated$")
   public void the_database_should_be_updated() throws Exception {
-      // Write code here that turns the phrase above into concrete actions
       assumeTrue(true);
   } 
 
   @Given("^the class code \"([^\"]*)\"$")
   public void the_class_code(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     class_code = arg1;
   }
 
   @When("^the app runs the query$")
   public void the_app_runs_the_query() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     result = conn.namesInClass(class_code, term_code);
   }
 
   @Then("^the first name should be \"([^\"]*)\"$")
   public void the_first_name_should_be(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     assertEquals(arg1, result.getFirstRecord());
   }
 
   @Given("^the app executes an arbitrary query$")
   public void an_arbitrary_query() throws Exception {
-      // Write code here that turns the phrase above into concrete actions
       first_query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 115";
   }
 
   @Then("^something should be printed$")
   public void something_outputs() throws Exception {
-      // Write code here that turns the phrase above into concrete actions
       System.out.print(conn.printQuery(first_query));
       assumeTrue(true);
   }
 
   @Given("^the section code \"([^\"]*)\"$")
   public void the_section_code(String arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     section_code = arg1;
   }
 
   @Then("^the list of who have taken the class will be printed$")
   public void something_else_outputs() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
+    // this should be reworked. We are deprecating the printQuery function
     System.out.print(conn.printQuery(first_query));
     assumeTrue(true);
   }
 
   @Given("^the term code \"([^\"]*)\"$")
   public void the_term_code(int arg1) throws Exception {
-    // Write code here that turns the phrase above into concrete actions
     term_code = arg1;
   }
 
   @When("^the app runs the new query$")
   public void the_app_runs_the_new_query() throws Exception {
-    // Write code here that turns the phrase above into concrete actions
+    //this should be reworked. The app should actually RUN the query in the stepcalled "the app runs the query"
     first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm,'MATH124','C') AS MATH124 FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 120 AND Section_Number = '02' AND Term_Code = 201610";
   }
+
+  @Given("^the app queries for prereqs of \"([^\"]*)\" \"([^\"]*)\"$")
+  public void the_app_queries_for_prereqs_of(String arg1, String arg2) throws Exception {
+    result = conn.getPrereqs(arg1, arg2);
+    }
+
+  @Then("^\"([^\"]*)\" should be the first result$")
+  public void should_be_the_first_result(String arg1) throws Exception {
+    String prereqString = "";
+    ArrayList<String> prereqs = result.getColumn(1);
+    for (int i = 0; i < prereqs.size(); i++)
+    {
+      if (i != 0) prereqString += ",";
+      prereqString += prereqs.get(i);
+    }
+    assertEquals(true,arg1.equalsIgnoreCase(prereqString));
+  }
+
 
 }

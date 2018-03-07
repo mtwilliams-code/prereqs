@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * This is a class to hold results from SQL queries. Apparently we can not return result sets,
  * so we're building another type to hold the information in an accessible format. 
  * 
- * 
  */
 public class Data {
 
@@ -33,7 +32,8 @@ public class Data {
     ArrayList<String> rslt = new ArrayList<String>();
     for (int j = 0; j < data.size(); j++)
     {
-      rslt.add(data.get(j).get(i));
+      String pointless = data.get(j).get(i);
+      rslt.add(pointless);
     }
     return rslt;
   }

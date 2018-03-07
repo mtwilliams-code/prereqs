@@ -9,7 +9,7 @@ import com.blinkendorf.app.SQL_Connector;
 
 
 /**
- * Hello world!
+ * Main class of the program, accepts inputs from user in loop and calls all necessary class methods
  *
  */
 public class App 

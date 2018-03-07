@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.DatabaseMetaData;
 
+/**
+ * Class to wrap jdbc mysql connector and handle all queries
+ * 
+ */
 public class SQL_Connector {
 
   String url = "jdbc:mysql://localhost:3306";
@@ -29,7 +33,13 @@ public class SQL_Connector {
     return conn;
   }
 
-  public ResultSet loadCSV(File file) throws SQLException{
+  /**
+   * Loads .csv file into the table specified.
+   * 
+   * @param file a File object specifying the csv to be read
+   * @param table a String title of the table to be loaded into
+   */
+  public ResultSet loadCSV(File file, String table) throws SQLException {
     Statement stmt = null;
     stmt = conn.createStatement();
     String query;
@@ -43,10 +53,8 @@ public class SQL_Connector {
       stmt.executeUpdate(query);
       query = "set autocommit = 0;";
       stmt.executeUpdate(query);
-      query = "load data local infile '" + file.toPath() + "' into table REGISTRATION columns terminated by ',' "
-      + "enclosed by '\"' escaped by '\"' "
-      + "lines terminated by '\n' "
-      + "ignore 1 lines";
+      query = "load data local infile '" + file.toPath() + "' into table " +table+ " columns terminated by ',' "
+          + "enclosed by '\"' escaped by '\"' " + "lines terminated by '\n' " + "ignore 1 lines";
       stmt.executeUpdate(query);
       query = "commit";
       stmt.executeUpdate(query);
@@ -60,7 +68,7 @@ public class SQL_Connector {
       if (stmt != null) {
         stmt.close();
       }
-    }   
+    }
     return rslt;
   }
 
@@ -212,180 +220,71 @@ public class SQL_Connector {
       stmt = conn.createStatement();
       String query = "DROP TABLE IF EXISTS REGISTRATION";
       stmt.executeUpdate(query);
-      query = "CREATE TABLE REGISTRATION ("
-        +"Pidm INT NOT NULL,"
-        +"Term_Code INT,"
-        +"Part_of_Term_Code VARCHAR(36),"
-        +"Part_of_Term_Desc VARCHAR(36),"
-        +"Enrolled_Ind VARCHAR(36),"
-        +"Registered_Ind VARCHAR(36),"
-        +"Junk VARCHAR(2),"
-        +"Student_Status_Code VARCHAR(36),"
-        +"Student_Status_Desc VARCHAR(36),"
-        +"Level_Code VARCHAR(36),"
-        +"Level_Desc VARCHAR(36),"
-        +"Student_Type_Code VARCHAR(36),"
-        +"Student_Type_Desc VARCHAR(36),"
-        +"Program_Code1 VARCHAR(36),"
-        +"Program_Code2 VARCHAR(36),"
-        +"Campus_Code VARCHAR(36),"
-        +"Campus_Desc VARCHAR(36),"
-        +"Department_Code VARCHAR(36),"
-        +"Department_Desc VARCHAR(36),"
-        +"Degree_Code1 VARCHAR(36),"
-        +"Degree_Desc1 VARCHAR(36),"
-        +"College_Code1 VARCHAR(36),"
-        +"College_Desc1 VARCHAR(36),"
-        +"Major_Code1 VARCHAR(36),"
-        +"Major_Desc1 VARCHAR(36),"
-        +"Major_Code1_2 VARCHAR(36),"
-        +"Major_Desc1_2 VARCHAR(36),"
-        +"Degree_Code2 VARCHAR(36),"
-        +"Degree_Desc2 VARCHAR(36),"
-        +"College_Code2 VARCHAR(36),"
-        +"College_Desc2 VARCHAR(36),"
-        +"Major_Code2 VARCHAR(36),"
-        +"Major_Desc2 VARCHAR(36),"
-        +"Class_Code VARCHAR(36),"
-        +"Class_Desc VARCHAR(36),"
-        +"CRN VARCHAR(36),"
-        +"Reg_STS_Code VARCHAR(36),"
-        +"Reg_STS_Desc VARCHAR(36),"
-        +"Spec_Approval_Ind VARCHAR(36),"
-        +"Reg_Error_Flag VARCHAR(36),"
-        +"Subject_Code VARCHAR(36),"
-        +"Subject_Desc VARCHAR(36),"
-        +"Course_Number VARCHAR(36),"
-        +"Section_Number VARCHAR(36),"
-        +"Course_Title VARCHAR(36),"
-        +"Course_Level_Code VARCHAR(36),"
-        +"Course_Campus_Code VARCHAR(36),"
-        +"Billing_Hours VARCHAR(36),"
-        +"Credit_Hours VARCHAR(36),"
-        +"Instructor_ID VARCHAR(36),"
-        +"Instructor_Name VARCHAR(36),"
-        +"Hours_Attended VARCHAR(36),"
-        +"Grade_Mode_Code VARCHAR(36),"
-        +"Grade_Mode_Desc VARCHAR(36),"
-        +"Midterm_Grade_Code VARCHAR(36),"
-        +"Grade_Code VARCHAR(36),"
-        +"Banner_ID VARCHAR(36),"
-        +"First_Name VARCHAR(36),"
-        +"Last_Name VARCHAR(36),"
-        +"Middle_Name VARCHAR(36),"
-        +"Prefix VARCHAR(36),"
-        +"Suffix VARCHAR(36),"
-        +"Preferred_First_Name VARCHAR(36),"
-        +"Confid_Ind VARCHAR(36),"
-        +"ACU_Email_Address VARCHAR(36),"
-        +"Home_Email_Address VARCHAR(36),"
-        +"Begin_Time_1 VARCHAR(36),"
-        +"End_Time1 VARCHAR(36),"
-        +"Bldg_Code1 VARCHAR(36),"
-        +"Bldg_Desc1 VARCHAR(36),"
-        +"Room_Code1 VARCHAR(36),"
-        +"Schd_Code1 VARCHAR(36),"
-        +"Monday_Ind1 VARCHAR(36),"
-        +"Tuesday_Ind1 VARCHAR(36),"
-        +"Wednesday_Ind1 VARCHAR(36),"
-        +"Thursday_Ind1 VARCHAR(36),"
-        +"Friday_Ind1 VARCHAR(36),"
-        +"Saturday_Ind1 VARCHAR(36),"
-        +"Sunday_Ind1 VARCHAR(36),"
-        +"Begin_Time2 VARCHAR(36),"
-        +"End_Time2 VARCHAR(36),"
-        +"Bldg_Code2 VARCHAR(36),"
-        +"Bldg_Desc2 VARCHAR(36),"
-        +"Room_Code2 VARCHAR(36),"
-        +"Schd_Code2 VARCHAR(36),"
-        +"Monday_Ind2 VARCHAR(36),"
-        +"Tuesday_Ind2 VARCHAR(36),"
-        +"Wednesday_Ind2 VARCHAR(36),"
-        +"Thursday_Ind2 VARCHAR(36),"
-        +"Friday_Ind2 VARCHAR(36),"
-        +"Saturday_Ind2 VARCHAR(36),"
-        +"Sunday_Ind2 VARCHAR(36),"
-        +"Advisor1_Term_Code_Eff VARCHAR(36),"
-        +"Advisor1_Last_Name VARCHAR(36),"
-        +"Advisor1_First_Name VARCHAR(36),"
-        +"Advisor1_Advisor_Code VARCHAR(36),"
-        +"Advisor1_Primary_Advisor_Ind VARCHAR(36),"
-        +"Sport1_Activity_Code VARCHAR(36),"
-        +"Sport1_Code VARCHAR(36),"
-        +"Sport1_Eligibilty_Code VARCHAR(36),"
-        +"Sport1_Athletic_Aid_Ind VARCHAR(36),"
-        +"Sport2_Activity__Code VARCHAR(36),"
-        +"Sport2_Code VARCHAR(36),"
-        +"Sport2_Eligibility_Code VARCHAR(36),"
-        +"Sport2_Athletic_Aid_Ind VARCHAR(36),"
-        +"Vet_Term VARCHAR(36),"
-        +"Vet_Code VARCHAR(36),"
-        +"Vet_Desc VARCHAR(36),"
-        +"Vet_Certified_Hours VARCHAR(36),"
-        +"Vet_Certified_Date VARCHAR(36),"
-        +"Vet_Certified_Hours2 VARCHAR(36),"
-        +"Minor_Code1 VARCHAR(36),"
-        +"Minor_Desc1 VARCHAR(36),"
-        +"Conc_Code1 VARCHAR(36),"
-        +"Conc_Desc1 VARCHAR(36),"
-        +"Minor_Code1_2 VARCHAR(36),"
-        +"Minor_Desc1_2 VARCHAR(36),"
-        +"Conc_Code1_2 VARCHAR(36),"
-        +"Conc_Desc1_2 VARCHAR(36),"
-        +"Minor_Code2 VARCHAR(36),"
-        +"Minor_Desc2 VARCHAR(36),"
-        +"Rate_Code VARCHAR(36),"
-        +"Ovrall_Cumm_GPA_Hrs_Attempted VARCHAR(36),"
-        +"Ovrall_Cumm_GPA__Hours_Earned VARCHAR(36),"
-        +"Ovrall_Cumm_GPA_Hrs VARCHAR(36),"
-        +"Ovrall_Cumm_GPA_Quality_Points VARCHAR(36),"
-        +"Ovrall_Cumm_GPA VARCHAR(36),"
-        +"Ovrall_Cumm_GPA_Hrs_Passed VARCHAR(36),"
-        +"Dead_Ind VARCHAR(36),"
-        +"Date_Class_Added VARCHAR(36),"
-        +"Registration_Status_Date VARCHAR(36),"
-        +"Activity_Date VARCHAR(36),"
-        +"Course_College_Code VARCHAR(36),"
-        +"Course_College_Desc VARCHAR(36),"
-        +"Course_Dept_Code VARCHAR(36),"
-        +"Course_Dept_Desc VARCHAR(36),"
-        +"International_Ind VARCHAR(36),"
-        +"Part_of_Term_Start_Date VARCHAR(36),"
-        +"Part_of_Term_End_Date VARCHAR(36),"
-        +"Section_Max_Enrollment VARCHAR(36),"
-        +"Section_Enrollment VARCHAR(36),"
-        +"Section_Available_Seats VARCHAR(36),"
-        +"Section_Schedule_Type VARCHAR(36),"
-        +"Section_Instruction_Method VARCHAR(36),"
-        +"Section_Session_Code VARCHAR(36),"
-        +"Ipeds_Ethnic_Code VARCHAR(36),"
-        +"Ipeds_Ethnic_Desc VARCHAR(36),"
-        +"PRIMARY KEY (Pidm),"
-        +"INDEX index2 (Subject_Code ASC , Course_Number ASC))";
+      query = "CREATE TABLE REGISTRATION (" + "Pidm INT NOT NULL," + "Term_Code INT," + "Part_of_Term_Code VARCHAR(36),"
+          + "Part_of_Term_Desc VARCHAR(36)," + "Enrolled_Ind VARCHAR(36)," + "Registered_Ind VARCHAR(36),"
+          + "Junk VARCHAR(2)," + "Student_Status_Code VARCHAR(36)," + "Student_Status_Desc VARCHAR(36),"
+          + "Level_Code VARCHAR(36)," + "Level_Desc VARCHAR(36)," + "Student_Type_Code VARCHAR(36),"
+          + "Student_Type_Desc VARCHAR(36)," + "Program_Code1 VARCHAR(36)," + "Program_Code2 VARCHAR(36),"
+          + "Campus_Code VARCHAR(36)," + "Campus_Desc VARCHAR(36)," + "Department_Code VARCHAR(36),"
+          + "Department_Desc VARCHAR(36)," + "Degree_Code1 VARCHAR(36)," + "Degree_Desc1 VARCHAR(36),"
+          + "College_Code1 VARCHAR(36)," + "College_Desc1 VARCHAR(36)," + "Major_Code1 VARCHAR(36),"
+          + "Major_Desc1 VARCHAR(36)," + "Major_Code1_2 VARCHAR(36)," + "Major_Desc1_2 VARCHAR(36),"
+          + "Degree_Code2 VARCHAR(36)," + "Degree_Desc2 VARCHAR(36)," + "College_Code2 VARCHAR(36),"
+          + "College_Desc2 VARCHAR(36)," + "Major_Code2 VARCHAR(36)," + "Major_Desc2 VARCHAR(36),"
+          + "Class_Code VARCHAR(36)," + "Class_Desc VARCHAR(36)," + "CRN VARCHAR(36)," + "Reg_STS_Code VARCHAR(36),"
+          + "Reg_STS_Desc VARCHAR(36)," + "Spec_Approval_Ind VARCHAR(36)," + "Reg_Error_Flag VARCHAR(36),"
+          + "Subject_Code VARCHAR(36)," + "Subject_Desc VARCHAR(36)," + "Course_Number VARCHAR(36),"
+          + "Section_Number VARCHAR(36)," + "Course_Title VARCHAR(36)," + "Course_Level_Code VARCHAR(36),"
+          + "Course_Campus_Code VARCHAR(36)," + "Billing_Hours VARCHAR(36)," + "Credit_Hours VARCHAR(36),"
+          + "Instructor_ID VARCHAR(36)," + "Instructor_Name VARCHAR(36)," + "Hours_Attended VARCHAR(36),"
+          + "Grade_Mode_Code VARCHAR(36)," + "Grade_Mode_Desc VARCHAR(36)," + "Midterm_Grade_Code VARCHAR(36),"
+          + "Grade_Code VARCHAR(36)," + "Banner_ID VARCHAR(36)," + "First_Name VARCHAR(36)," + "Last_Name VARCHAR(36),"
+          + "Middle_Name VARCHAR(36)," + "Prefix VARCHAR(36)," + "Suffix VARCHAR(36),"
+          + "Preferred_First_Name VARCHAR(36)," + "Confid_Ind VARCHAR(36)," + "ACU_Email_Address VARCHAR(36),"
+          + "Home_Email_Address VARCHAR(36)," + "Begin_Time_1 VARCHAR(36)," + "End_Time1 VARCHAR(36),"
+          + "Bldg_Code1 VARCHAR(36)," + "Bldg_Desc1 VARCHAR(36)," + "Room_Code1 VARCHAR(36),"
+          + "Schd_Code1 VARCHAR(36)," + "Monday_Ind1 VARCHAR(36)," + "Tuesday_Ind1 VARCHAR(36),"
+          + "Wednesday_Ind1 VARCHAR(36)," + "Thursday_Ind1 VARCHAR(36)," + "Friday_Ind1 VARCHAR(36),"
+          + "Saturday_Ind1 VARCHAR(36)," + "Sunday_Ind1 VARCHAR(36)," + "Begin_Time2 VARCHAR(36),"
+          + "End_Time2 VARCHAR(36)," + "Bldg_Code2 VARCHAR(36)," + "Bldg_Desc2 VARCHAR(36)," + "Room_Code2 VARCHAR(36),"
+          + "Schd_Code2 VARCHAR(36)," + "Monday_Ind2 VARCHAR(36)," + "Tuesday_Ind2 VARCHAR(36),"
+          + "Wednesday_Ind2 VARCHAR(36)," + "Thursday_Ind2 VARCHAR(36)," + "Friday_Ind2 VARCHAR(36),"
+          + "Saturday_Ind2 VARCHAR(36)," + "Sunday_Ind2 VARCHAR(36)," + "Advisor1_Term_Code_Eff VARCHAR(36),"
+          + "Advisor1_Last_Name VARCHAR(36)," + "Advisor1_First_Name VARCHAR(36),"
+          + "Advisor1_Advisor_Code VARCHAR(36)," + "Advisor1_Primary_Advisor_Ind VARCHAR(36),"
+          + "Sport1_Activity_Code VARCHAR(36)," + "Sport1_Code VARCHAR(36)," + "Sport1_Eligibilty_Code VARCHAR(36),"
+          + "Sport1_Athletic_Aid_Ind VARCHAR(36)," + "Sport2_Activity__Code VARCHAR(36)," + "Sport2_Code VARCHAR(36),"
+          + "Sport2_Eligibility_Code VARCHAR(36)," + "Sport2_Athletic_Aid_Ind VARCHAR(36)," + "Vet_Term VARCHAR(36),"
+          + "Vet_Code VARCHAR(36)," + "Vet_Desc VARCHAR(36)," + "Vet_Certified_Hours VARCHAR(36),"
+          + "Vet_Certified_Date VARCHAR(36)," + "Vet_Certified_Hours2 VARCHAR(36)," + "Minor_Code1 VARCHAR(36),"
+          + "Minor_Desc1 VARCHAR(36)," + "Conc_Code1 VARCHAR(36)," + "Conc_Desc1 VARCHAR(36),"
+          + "Minor_Code1_2 VARCHAR(36)," + "Minor_Desc1_2 VARCHAR(36)," + "Conc_Code1_2 VARCHAR(36),"
+          + "Conc_Desc1_2 VARCHAR(36)," + "Minor_Code2 VARCHAR(36)," + "Minor_Desc2 VARCHAR(36),"
+          + "Rate_Code VARCHAR(36)," + "Ovrall_Cumm_GPA_Hrs_Attempted VARCHAR(36),"
+          + "Ovrall_Cumm_GPA__Hours_Earned VARCHAR(36)," + "Ovrall_Cumm_GPA_Hrs VARCHAR(36),"
+          + "Ovrall_Cumm_GPA_Quality_Points VARCHAR(36)," + "Ovrall_Cumm_GPA VARCHAR(36),"
+          + "Ovrall_Cumm_GPA_Hrs_Passed VARCHAR(36)," + "Dead_Ind VARCHAR(36)," + "Date_Class_Added VARCHAR(36),"
+          + "Registration_Status_Date VARCHAR(36)," + "Activity_Date VARCHAR(36)," + "Course_College_Code VARCHAR(36),"
+          + "Course_College_Desc VARCHAR(36)," + "Course_Dept_Code VARCHAR(36)," + "Course_Dept_Desc VARCHAR(36),"
+          + "International_Ind VARCHAR(36)," + "Part_of_Term_Start_Date VARCHAR(36),"
+          + "Part_of_Term_End_Date VARCHAR(36)," + "Section_Max_Enrollment VARCHAR(36),"
+          + "Section_Enrollment VARCHAR(36)," + "Section_Available_Seats VARCHAR(36),"
+          + "Section_Schedule_Type VARCHAR(36)," + "Section_Instruction_Method VARCHAR(36),"
+          + "Section_Session_Code VARCHAR(36)," + "Ipeds_Ethnic_Code VARCHAR(36)," + "Ipeds_Ethnic_Desc VARCHAR(36),"
+          + "PRIMARY KEY (Pidm)," + "INDEX index2 (Subject_Code ASC , Course_Number ASC))";
       stmt.executeUpdate(query);
       query = "DROP function IF EXISTS `CLASS_TAKEN`";
       stmt.executeUpdate(query);
-      query = "CREATE DEFINER=`java`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"+ 
-              "RETURNS char(1) CHARSET latin1\n" + 
-              "BEGIN\n" + 
-              "DECLARE done INT DEFAULT FALSE;\n" + 
-              "DECLARE CCode VARCHAR(10) default '';\n" + 
-              "DECLARE FGrade VARCHAR(2);\n" + 
-              "DECLARE OUTPUT CHAR DEFAULT 'N';\n" + 
-              "DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN);\n" + 
-              "DECLARE CONTINUE handler for NOT FOUND SET done = true;\n" + 
-              "OPEN CLASSES;\n" + 
-              "start_loop: loop\n" + 
-              "fetch CLASSES into CCode, FGrade;\n" +
-              "if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';\n" +
-              "leave start_loop;\n" + 
-              "end if;\n" + 
-              "if done then leave start_loop;\n" + 
-              "end if;\n" + 
-              "end loop;\n" + 
-              "CLOSE CLASSES;\n" + 
-              "RETURN OUTPUT;\n" + 
-              "END";
+      query = "CREATE DEFINER=`java`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"
+          + "RETURNS char(1) CHARSET latin1\n" + "BEGIN\n" + "DECLARE done INT DEFAULT FALSE;\n"
+          + "DECLARE CCode VARCHAR(10) default '';\n" + "DECLARE FGrade VARCHAR(2);\n"
+          + "DECLARE OUTPUT CHAR DEFAULT 'N';\n"
+          + "DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN);\n"
+          + "DECLARE CONTINUE handler for NOT FOUND SET done = true;\n" + "OPEN CLASSES;\n" + "start_loop: loop\n"
+          + "fetch CLASSES into CCode, FGrade;\n"
+          + "if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';\n"
+          + "leave start_loop;\n" + "end if;\n" + "if done then leave start_loop;\n" + "end if;\n" + "end loop;\n"
+          + "CLOSE CLASSES;\n" + "RETURN OUTPUT;\n" + "END";
       stmt.executeUpdate(query);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -407,17 +306,16 @@ public class SQL_Connector {
    * @param term_code The term code for the class you are interested in.
    * @return A Data object containing the information from the query.
    */
-  public Data namesInClass(String class_code, int term_code) throws SQLException
-  {
+  public Data namesInClass(String class_code, int term_code) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
     Data names = new Data();
     ResultSetMetaData rsmd = null;
     int numColumns = 0;
-    try
-    {
+    try {
       stmt = conn.createStatement();
-      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"
+          + class_code + "' AND Term_Code = " + term_code;
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
       rsmd = rslt.getMetaData();
@@ -426,21 +324,19 @@ public class SQL_Connector {
         names.appendColumn(rsmd.getColumnLabel(i));
       }
 
-      while(rslt.next()) {
+      while (rslt.next()) {
         ArrayList<String> a = new ArrayList<String>();
         a.add(rslt.getString(1));
         a.add(rslt.getString(2));
         names.add(a);
         // names.add(rslt.getString(1) + " " + rslt.getString(2));
       }
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
       throw e;
-    }
-    finally {
+    } finally {
       if (stmt != null) {
         stmt.close();
       }
@@ -448,52 +344,44 @@ public class SQL_Connector {
     return names;
   }
 
-
   /**
    * Deprecated
    */
-  public String printQuery(String query) throws SQLException
-  {
+  public String printQuery(String query) throws SQLException {
     ResultSet rslt = null;
     ResultSetMetaData rsmd = null;
     Statement stmt = null;
     int numColumns;
     String formattedTable = "";
-    try
-    {
+    try {
       stmt = conn.createStatement();
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
       rsmd = rslt.getMetaData();
       numColumns = rsmd.getColumnCount();
       formattedTable += String.format("|%12.12s|", rsmd.getColumnName(1));
-      for(int i = 2; i <= numColumns; i++)
-      {
+      for (int i = 2; i <= numColumns; i++) {
         formattedTable += String.format("|%12.12s|", rsmd.getColumnName(i));
       }
       formattedTable += "\n";
-      while( rslt.next() )
-      {
+      while (rslt.next()) {
         formattedTable += String.format("|%12.12s|", rslt.getString(1));
-        for(int i = 2; i <= numColumns; i++)
-        {
+        for (int i = 2; i <= numColumns; i++) {
           formattedTable += String.format("|%12.12s|", rslt.getString(i));
         }
         formattedTable += "\n";
       }
       return formattedTable;
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
       throw e;
-    }
-    finally {
+    } finally {
       if (stmt != null) {
         stmt.close();
       }
-    } 
+    }
   }
 
   /**
@@ -504,75 +392,132 @@ public class SQL_Connector {
    * 
    * @return A Data object containing the prereqs
    */
-  public Data getPrereqs(String subjectCode, String subjectNum)
-  {
-    Data d = new Data();
+  public Data getPrereqs(String subjectCode, String subjectNum) throws SQLException {
+    ResultSet rslt = null;
+    Statement stmt = null;
+    Data prereqs = new Data();
+    ResultSetMetaData rsmd = null;
+    int numColumns = 0;
+    try {
+      stmt = conn.createStatement();
+      String query = "SELECT Class_Code, Prereq_Code from PREREQS where Class_Code = '"+subjectCode+subjectNum+"'";
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        prereqs.appendColumn(rsmd.getColumnLabel(i));
+      }
 
-    return d;
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(rslt.getString(1).replaceAll("[^a-zA-Z0-9]+", ""));
+        a.add(rslt.getString(2).replaceAll("[^a-zA-Z0-9]+", ""));
+        prereqs.add(a);
+        // names.add(rslt.getString(1) + " " + rslt.getString(2));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
+    return prereqs;
   }
 
-  private String classTakenQuery (Data prereq_list, String subject_code, String course_number, String section_num, int term_code)
+  /**
+   * Creates pre-formatted prereq table for scrapedPrereqs.csv
+   */
+  public void createPrereqTable() throws SQLException
   {
-    String class_code = subject_code+course_number+section_num;
+    Statement stmt = null;
+    try {
+      stmt = conn.createStatement();
+      String query = "DROP TABLE IF EXISTS PREREQS";
+      stmt.executeUpdate(query);
+      query = "CREATE TABLE PREREQS ( Class_Code VARCHAR(7) NOT NULL, "
+      + "Prereq_Code VARCHAR(45) NOT NULL, "
+      + "PRIMARY KEY(Class_Code,Prereq_Code))";
+      stmt.executeUpdate(query);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
+  }
+
+  /** 
+   * 
+   */
+  private String classTakenQuery(Data prereq_list, String subject_code, String course_number, String section_num,
+      int term_code) {
+    String class_code = subject_code + course_number + section_num;
     String ttr = "SELECT First_Name, Last_Name";
 
-    ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"+class_code+"' AND Term_Code = "+term_code;
+    ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '" + class_code
+        + "' AND Term_Code = " + term_code;
     return ttr;
   }
-  
-public String PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
-  ResultSet rslt = null;
-  Statement stmt = null;
-  Data list  = new Data();
-  Data pre = new Data();
-  ResultSetMetaData rsmd = null;
-  int numColumns = 0;
-  // call get prereqs
-  // this returns a data object that is a list of
-  pre = getPrereqs(subjectCode, subjectNum);
 
-  // query the database with John's string
-  // he's writing a query and I need to write the stuff that passes to the db and runs it
-  // ClassTakenQuery will give me a string to run
-  
-  String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
+  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode)
+      throws SQLException {
+    ResultSet rslt = null;
+    Statement stmt = null;
+    Data list = new Data();
+    Data pre = new Data();
+    ResultSetMetaData rsmd = null;
+    int numColumns = 0;
+    // call get prereqs
+    // this returns a data object that is a list of prereqs
+    pre = getPrereqs(subjectCode, subjectNum);
 
-  try {
-    stmt = conn.createStatement();
-    stmt.executeQuery(query);
-    rslt = stmt.getResultSet();
-    rsmd = rslt.getMetaData();
-    numColumns = rsmd.getColumnCount();
-    for (int i = 1; i <= numColumns; i++) {
-      list.appendColumn(rsmd.getColumnLabel(i));
+    // query the database with John's string
+    // he's writing a query and I need to write the stuff that passes to the db and runs it
+    // ClassTakenQuery will give me a string to run
+
+    String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
+
+    try {
+      stmt = conn.createStatement();
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        list.appendColumn(rsmd.getColumnLabel(i));
+      }
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(rslt.getString(1));
+        a.add(rslt.getString(2));
+        list.add(a);
+        // names.add(rslt.getString(1) + " " + rslt.getString(2));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
     }
-    while(rslt.next()) {
-      ArrayList<String> a = new ArrayList<String>();
-      a.add(rslt.getString(1));
-      a.add(rslt.getString(2));
-      list.add(a);
-      // names.add(rslt.getString(1) + " " + rslt.getString(2));
-    }
+
+    // Store all the returns in a Data object
+    // limit it to show firstName, lastName, list of classes where N.
+
+    // return the data object
+    return list;
   }
-  catch (SQLException e) {
-    System.out.println("SQLException: " + e.getMessage());
-    System.out.println("SQLState: " + e.getSQLState());
-    System.out.println("VendorError: " + e.getErrorCode());
-    throw e;
-  }
-  finally {
-    if (stmt != null) {
-      stmt.close();
-    }
-  }
-
-  // Store all the returns in a Data object
-  // limit it to show firstName, lastName, list of classes where N.
-
-
-
-  // return the data object
-  return list;
-}
 
 }
