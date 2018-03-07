@@ -468,22 +468,22 @@ public class SQL_Connector {
     return ttr;
   }
 
-  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode)
-      throws SQLException {
+public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCode, int termCode ) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
-    Data list = new Data();
+    Data list  = new Data();
+    Data newList = new Data();
     Data pre = new Data();
     ResultSetMetaData rsmd = null;
     int numColumns = 0;
+
     // call get prereqs
-    // this returns a data object that is a list of prereqs
+    // this returns a data object that is a list of
     pre = getPrereqs(subjectCode, subjectNum);
 
     // query the database with John's string
     // he's writing a query and I need to write the stuff that passes to the db and runs it
     // ClassTakenQuery will give me a string to run
-
     String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
 
     try {
@@ -495,19 +495,27 @@ public class SQL_Connector {
       for (int i = 1; i <= numColumns; i++) {
         list.appendColumn(rsmd.getColumnLabel(i));
       }
-      while (rslt.next()) {
+      while(rslt.next()) {
         ArrayList<String> a = new ArrayList<String>();
+
+    /*
+        !!!!!!!!!!!!!!!
+        Hey fix the a.add so it adds all the columns, not just the first two
+        probably do a for loop or something
+    */
+
         a.add(rslt.getString(1));
         a.add(rslt.getString(2));
         list.add(a);
-        // names.add(rslt.getString(1) + " " + rslt.getString(2));
       }
-    } catch (SQLException e) {
+    }
+    catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
       throw e;
-    } finally {
+    }
+    finally {
       if (stmt != null) {
         stmt.close();
       }
@@ -516,8 +524,41 @@ public class SQL_Connector {
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
 
+    // this pulls the first column from the data object, it is just student names
+    ArrayList<String> listStudentNames = list.getColumn(0);
+    // this pulls the first row, it is just the class names
+    ArrayList<String> listColumnNames = list.getRow(0);
+
+    int rows = list.getRowCount;
+
+    // here I am going to loop through the height of the data object
+    for( int i = 1; i <= rows; i++)
+    {
+      // the plan here is only add students to the new data object if they have an "N"
+      ArrayList<String> student = list.getRow(i);
+      ArrayList<String> newStudent = new ArrayList<String>();
+      newStudent.add(student.get(0));
+      for( int j = 1; j <= numColumns; j++)
+      {
+        if ( student.get(j) == "N")
+        {
+          newStudent.add(listColumnNames.get(j))
+        }
+      }
+      if( newStudent.size() > 1 )
+      {
+        newList.add(newStudent);
+      }
+
+    }
+    if( newList.isEmpty )
+    {
+      ArrayList<String> errorThing = new ArrayList<String>();
+      errorThing.add("All students met the required prerequisites for this course. ")
+      newList.add(errorThing);
+    }
     // return the data object
-    return list;
+    return newList;
   }
 
 }
