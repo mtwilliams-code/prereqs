@@ -477,7 +477,7 @@ public class SQL_Connector {
       for (int j = 0; j < prereqCodes.length; i++) 
       {
         if (j != 0) ttr += " OR ";
-        ttr += "CLASS_TAKEN(PIDM, 'C', '"+subject_code+course_number+"') AS '"+subject_code+course_number+"'";
+        ttr += "CLASS_TAKEN(PIDM, 'C', '"+prereqCodes[j]+"') AS '"+prereqCodes[j]+"'";
       }
     }
     ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '" + class_code
