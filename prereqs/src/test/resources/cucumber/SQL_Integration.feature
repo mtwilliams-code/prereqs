@@ -38,16 +38,16 @@ Feature: Integrate with local mySQL database
     Then the database should be updated
 
 Examples:
-| filepath                                           | table        | 
-| src/test/resources/data/full/anon1810.csv | registration |
-| src/test/resources/data/scrapedPrereqs.csv         | prereqs      |
+| filepath                                     | table        | 
+| src/test/resources/data/full/anon1810.csv    | registration |
+| src/test/resources/data/scrapedPrereqs.csv   | prereqs      |
 
   Scenario: Query for people in a class
     Given the class code "CS12001"
     And the term code "201420"
     And the app connects to the "RECORDS" database on the server
     When the app runs the query
-    Then the first name should be "Anne Luther"
+    Then the first name should be "Danielle Brown"
 
   Scenario: Test the table formatters output
     Given the app connects to the "RECORDS" database on the server

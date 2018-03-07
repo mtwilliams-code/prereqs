@@ -133,7 +133,7 @@ public class SQL_Integration_Steps {
 
   @Given("^the app executes an arbitrary query$")
   public void an_arbitrary_query() throws Exception {
-      first_query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 115";
+      first_query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 115 AND Section_Number = '01' AND Term_Code = '201710'";
   }
 
   @Then("^something should be printed$")
