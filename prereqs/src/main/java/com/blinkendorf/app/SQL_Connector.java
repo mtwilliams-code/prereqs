@@ -281,12 +281,12 @@ public class SQL_Connector {
       stmt.executeUpdate(query);
       query = "CREATE DEFINER=`java`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"
           + "RETURNS char(1) CHARSET latin1\n" + "BEGIN\n" + "DECLARE done INT DEFAULT FALSE;\n"
-          + "DECLARE CCode VARCHAR(10) default '';\n" + "DECLARE FGrade VARCHAR(2);\n"
+          + "DECLARE CCode VARCHAR(10) default '';\n" + "DECLARE FGrade VARCHAR(2);\n"+"DECLARE STS VARCHAR(2);\n"
           + "DECLARE OUTPUT CHAR DEFAULT 'N';\n"
-          + "DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code FROM REGISTRATION WHERE PIDM = PIDMIN);\n"
+          + "DECLARE CLASSES CURSOR FOR (SELECT CONCAT(Subject_Code,Course_Number), Grade_Code, Reg_STS_Code FROM REGISTRATION WHERE PIDM = PIDMIN);\n"
           + "DECLARE CONTINUE handler for NOT FOUND SET done = true;\n" + "OPEN CLASSES;\n" + "start_loop: loop\n"
-          + "fetch CLASSES into CCode, FGrade;\n"
-          + "if CCode = CLASS_CODE and (FGrade BETWEEN 'A' AND GRADE OR FGrade IN ('', 'P')) then  set OUTPUT='Y';\n"
+          + "fetch CLASSES into CCode, FGrade, STS;\n"
+          + "if CCode = CLASS_CODE and ((FGrade BETWEEN 'A' AND 'C') OR (FGrade IN ('', 'P', 'CR'))) AND (STS = 'RE')then set OUTPUT='Y';\n"
           + "leave start_loop;\n" + "end if;\n" + "if done then leave start_loop;\n" + "end if;\n" + "end loop;\n"
           + "CLOSE CLASSES;\n" + "RETURN OUTPUT;\n" + "END";
       stmt.executeUpdate(query);
