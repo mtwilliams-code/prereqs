@@ -29,7 +29,7 @@ User Stories:userStories.md
 How to install: README.md
 How to run: README.md
 
-Timestamp (180307 2:03)
+Timestamp (180307 14:03)
 
 Indicate the file/folder in the repo for each of the following items.
 
