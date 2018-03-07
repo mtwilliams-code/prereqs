@@ -77,7 +77,6 @@ public class Data {
     public int getRowCount()
     {
       return data.get(0).size();
-
     }
 
   }
