@@ -520,6 +520,13 @@ public class SQL_Connector {
     // call get prereqs
     // this returns a data object that is a list of
     Data pre = getPrereqs(subjectCode, subjectNum);
+    if(pre.isEmpty())
+    {
+      ArrayList<String> errorThing = new ArrayList<String>();
+      errorThing.add("This course has no prerequisites.");
+      newList.add(errorThing);
+      return newList;
+    }
 
     // query the database with John's string
     // he's writing a query and I need to write the stuff that passes to the db and runs it
