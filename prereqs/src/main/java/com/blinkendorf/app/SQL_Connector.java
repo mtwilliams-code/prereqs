@@ -567,8 +567,8 @@ public class SQL_Connector {
     // this pulls the first column from the data object, it is just student names
     ArrayList<String> listStudentNames = list.getColumn(0);
     // this pulls the first row, it is just the class names
-    ArrayList<String> listColumnNames = list.getRow(0);
-
+    ArrayList<String> listColumnNames =  list.getTitles();
+    
     int rows = list.getRowCount();
 
     // here I am going to loop through the height of the data object
