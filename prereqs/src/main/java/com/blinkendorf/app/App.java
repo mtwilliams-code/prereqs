@@ -58,7 +58,13 @@ public class App
                 result.printData();
             }
             else if (m2.find()) {
-                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+"."+m2.group(3)+":");
+                System.out.println("Prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+" are:");
+                try{
+                    result = conn.getPrereqs(m2.group(1).toUpperCase(),m2.group(2));
+                }
+                catch(SQLException e){}
+                result.printData();
+                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+"."+m2.group(3)+", along with the classes they are missing:");
                 try{
                     result = conn.PrereqCheck(m2.group(1).toUpperCase(),m2.group(2),m2.group(3),TERM_CODE);
                 }

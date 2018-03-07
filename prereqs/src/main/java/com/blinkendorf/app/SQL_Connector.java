@@ -562,6 +562,7 @@ public class SQL_Connector {
         stmt.close();
       }
     }
+list.printData();
 
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
@@ -586,7 +587,7 @@ public class SQL_Connector {
         }
       }
 
-      if (newStudent.size() > 1) {
+      if (newStudent.size() > 2) {
         newList.add(newStudent);
       }
 
