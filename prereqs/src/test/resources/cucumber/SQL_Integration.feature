@@ -73,3 +73,16 @@ Examples:
   | CS          | 374        | CS230              |
   | ACCT        | 499        | ACCT302,ACCT310    |
   | ANSC        | 345        | ANSC343,ANSC363orANSC483|
+
+  Scenario Outline: Test PrereqCheck
+  Given the app connects to the "RECORDS" database on the server
+  And the subject code "<subjectCode>"
+  And the section code "<sectionCode>"
+  And the term code "<termCode>"
+  And the course number "<courseNumber>"
+  When the app runs the PrereqCheck query
+  Then the list of who don't have the prereqs will be printed
+
+  Examples:
+  | subjectCode | courseNumber | sectionCode | termCode |
+  | ANSC        | 345          | 01          | 201810   |
