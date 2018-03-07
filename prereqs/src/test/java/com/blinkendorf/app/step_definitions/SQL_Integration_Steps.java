@@ -23,6 +23,8 @@ public class SQL_Integration_Steps {
 
   SQL_Connector conn;
   String class_code;
+  String subject_code;
+  String course_number;
   int term_code;
   String first_query;
   String section_code;
@@ -184,5 +186,27 @@ public class SQL_Integration_Steps {
     
   }
 
+  @Given("^the subject code \"([^\"]*)\"$")
+  public void the_subject_code(String arg1) throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      subject_code = arg1;
+  }
 
+  @Given("^the course number \"([^\"]*)\"$")
+  public void the_course_number(String arg1) throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      course_number = arg1;
+  }
+
+  @When("^the app runs the PrereqCheck query$")
+  public void the_app_runs_the_PrereqCheck_query() throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      result = conn.PrereqCheck(subject_code, course_number, section_code, term_code);
+  }
+
+  @Then("^the list of who don't have the prereqs will be printed$")
+  public void the_list_of_who_don_t_have_the_prereqs_will_be_printed() throws Exception {
+      // Write code here that turns the phrase above into concrete actions
+      result.printData();
+  }
 }
