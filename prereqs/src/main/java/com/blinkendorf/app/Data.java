@@ -91,7 +91,7 @@ public class Data {
     }
 
     /**
-     * Helper function to return first two columns from the first row
+     * Helper function to return first two columns from the first row.
      * @return The first two columns of the first record concatenated together with a space between them.
      */
     public String getFirstRecord()
@@ -99,11 +99,23 @@ public class Data {
       return data.get(0).get(0) + " " + data.get(0).get(1);
     }
 
-    // function to count the rows in a Data object
-    public int getRowCount()
-    {
-      return data.get(0).size();
-    }
-
+  /** 
+   * Counts the rows in a Data object.
+   * @return Integer with the number of rows.
+   */
+  public int getRowCount()
+  {
+    return data.get(0).size();
   }
+  
+  /**
+   * Checks if Data is empty.
+   * @return Boolean, true if empty, false otherwise.
+   */
+  public Boolean isEmpty()
+  {
+    return (data.size() == 0);
+  }
+  
+}
 
