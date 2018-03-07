@@ -3,7 +3,7 @@ CREATE DATABASE RECORDS;
 USE RECORDS;
 DROP TABLE IF EXISTS REGISTRATION;
 CREATE TABLE REGISTRATION (
-    Pidm INT NOT NULL,
+	Pidm INT NOT NULL,
     Term_Code INT,
     Part_of_Term_Code VARCHAR(36),
     Part_of_Term_Desc VARCHAR(36),
@@ -112,7 +112,7 @@ CREATE TABLE REGISTRATION (
     Vet_Code VARCHAR(36),
     Vet_Desc VARCHAR(36),
     Vet_Certified_Hours VARCHAR(36),
-    Vet_Certified_Date VARCHAR(72),
+    Vet_Certified_Date VARCHAR(36),
     Vet_Certified_Hours2 VARCHAR(36),
     Minor_Code1 VARCHAR(36),
     Minor_Desc1 VARCHAR(36),
@@ -150,7 +150,7 @@ CREATE TABLE REGISTRATION (
     Section_Session_Code VARCHAR(36),
     Ipeds_Ethnic_Code VARCHAR(36),
     Ipeds_Ethnic_Desc VARCHAR(36),
-    INDEX index1 (Pidm),
+    PRIMARY KEY (Pidm),
     INDEX index2 (Subject_Code ASC , Course_Number ASC)
 );
 
@@ -190,12 +190,3 @@ RETURN OUTPUT;
 END$$
 
 DELIMITER ;
-
-
-load data local infile '~/Desktop/Spring-2018/Soft-Eng/GitLab/prereqs/prereqs/src/test/resources/data/full/registration_anon.csv'
-into table REGISTRATION 
-columns terminated by ','
-enclosed by '\"' 
-escaped by '\"' 
-lines terminated by '\n' 
-ignore 1 lines;

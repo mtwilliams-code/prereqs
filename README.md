@@ -1,4 +1,4 @@
-Project Name: Pre-Req Checker 
+Project Name: Pre-Req Checker
 
 Team Members: Gideon Luck, John Marsden, John Roper, Matthew Williams
 
@@ -91,5 +91,4 @@ between `@RunWith...` and `public...`:
     format = { "pretty", "html:target/cucumber" },
     features = "classpath:cucumber/calculator.feature"
 )
-
 
