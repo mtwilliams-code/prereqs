@@ -272,7 +272,10 @@ public class SQL_Connector {
           + "Section_Enrollment VARCHAR(36)," + "Section_Available_Seats VARCHAR(36),"
           + "Section_Schedule_Type VARCHAR(36)," + "Section_Instruction_Method VARCHAR(36),"
           + "Section_Session_Code VARCHAR(36)," + "Ipeds_Ethnic_Code VARCHAR(36)," + "Ipeds_Ethnic_Desc VARCHAR(36),"
-          + "INDEX index2 (Subject_Code ASC , Course_Number ASC))";
+          + "INDEX index1 (Pidm ASC),"
+          + "INDEX index2 (Subject_Code ASC , Course_Number ASC),"
+          + "INDEX index3 (Term_Code ASC),"
+          + "INDEX index4 (Subject_Code ASC, Course_Number ASC, Section_Number ASC))";
       stmt.executeUpdate(query);
       query = "DROP function IF EXISTS `CLASS_TAKEN`";
       stmt.executeUpdate(query);
@@ -478,7 +481,7 @@ public class SQL_Connector {
       {
         String title = "";
         ttr += "CASE WHEN ";
-        for (int j = 0; j < prereqCodes.length; i++) 
+        for (int j = 0; j < prereqCodes.length; j++) 
         {
           if (j != 0)
           {
@@ -488,7 +491,7 @@ public class SQL_Connector {
           ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[j]+"')";
           title += prereqCodes[j];
         }
-        ttr += " THEN 'Y' ELSE 'N' AS '"+title+"'";
+        ttr += " THEN 'Y' ELSE 'N' END AS '"+title+"'";
       }
       else if(prereqCodes.length > 0)
         ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[0]+"') AS '"+prereqCodes[0]+"'";
@@ -562,7 +565,6 @@ public class SQL_Connector {
         stmt.close();
       }
     }
-list.printData();
 
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
