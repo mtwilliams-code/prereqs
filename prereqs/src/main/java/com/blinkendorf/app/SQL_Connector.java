@@ -513,6 +513,8 @@ public class SQL_Connector {
     Statement stmt = null;
     Data list = new Data();
     Data newList = new Data();
+    newList.appendColumn("First Name");
+    newList.appendColumn("Last Name");
 
     ResultSetMetaData rsmd = null;
     int numColumns = 0;
@@ -577,7 +579,8 @@ public class SQL_Connector {
       ArrayList<String> student = list.getRow(i);
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
-      for (int j = 0; j < numColumns; j++) {
+      newStudent.add(student.get(1));
+      for (int j = 2; j < numColumns; j++) {
         if (student.get(j).equalsIgnoreCase("N")) {
           newStudent.add(listColumnNames.get(j));
         }
