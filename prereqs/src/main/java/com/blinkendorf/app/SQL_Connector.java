@@ -572,12 +572,12 @@ public class SQL_Connector {
     int rows = list.getRowCount();
 
     // here I am going to loop through the height of the data object
-    for (int i = 1; i <= rows; i++) {
+    for (int i = 0; i < rows; i++) {
       // the plan here is only add students to the new data object if they have an "N"
       ArrayList<String> student = list.getRow(i);
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
-      for (int j = 1; j <= numColumns; j++) {
+      for (int j = 0; j < numColumns; j++) {
         if (student.get(j).equalsIgnoreCase("N")) {
           newStudent.add(listColumnNames.get(j));
         }
@@ -590,6 +590,7 @@ public class SQL_Connector {
     }
     if (newList.isEmpty()) {
       ArrayList<String> errorThing = new ArrayList<String>();
+      newList.appendColumn("Result");
       errorThing.add("All students met the required prerequisites for this course. ");
       newList.add(errorThing);
     }

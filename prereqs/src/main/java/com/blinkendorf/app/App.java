@@ -58,7 +58,7 @@ public class App
                 result.printData();
             }
             else if (m2.find()) {
-                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1)+" "+m2.group(2)+"."+m2.group(3)+":");
+                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+"."+m2.group(3)+":");
                 try{
                     result = conn.PrereqCheck(m2.group(1).toUpperCase(),m2.group(2),m2.group(3),TERM_CODE);
                 }
@@ -66,7 +66,7 @@ public class App
                 result.printData();
             }
             else if (m3.find()) {
-                System.out.println("Prereqs for "+m3.group(1)+" "+m3.group(2)+":");
+                System.out.println("Prereqs for "+m3.group(1).toUpperCase()+" "+m3.group(2)+":");
                 try{
                     result = conn.getPrereqs(m3.group(1).toUpperCase(),m3.group(2));
                 }
