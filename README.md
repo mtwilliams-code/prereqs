@@ -17,7 +17,6 @@ jUnit Runner, and JSEFA.
 Maven will automatically locate these repositiories and install them in your
 `$(user.home)/.m2/repositories/` directory. 
 
-=======
 Commands that work in our Java app
 ========================
 `who is in <subject> <classnumber>.<sectionnumber>` : where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'. This will give a list of all students enrolled in the section given.
