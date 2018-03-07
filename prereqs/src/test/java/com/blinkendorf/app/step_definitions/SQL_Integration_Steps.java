@@ -162,7 +162,7 @@ public class SQL_Integration_Steps {
   @When("^the app runs the new query$")
   public void the_app_runs_the_new_query() throws Exception {
     //this should be reworked. The app should actually RUN the query in the stepcalled "the app runs the query"
-    first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm,'MATH124','C') AS MATH124 FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 120 AND Section_Number = '02' AND Term_Code = 201610";
+    first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm,'MATH124','C') AS MATH124 FROM REGISTRATION WHERE Subject_Code = 'MATH' AND Course_Number = 124 AND Section_Number = '01' AND Term_Code = 201810";
     result = conn.runQuery(first_query);
   }
 

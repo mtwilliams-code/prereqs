@@ -16,12 +16,13 @@ public class App
 {
     private static Scanner scanner = new Scanner( System.in );
     private static Data result;
+    private static final int TERM_CODE = 201810;
     public static void main( String[] args )
     {
         SQL_Connector conn = null;
         System.out.println("Give us a moment to ensure we can connect to the database...");
         try {
-            String url = "jdbc:mysql://localhost:3306/" + "records";
+            String url = "jdbc:mysql://localhost:3306/" + "RECORDS";
             String username = "java";
             String password = "Java";
             conn = new SQL_Connector(url, username, password);
@@ -44,29 +45,30 @@ public class App
             if (input.equalsIgnoreCase("help")) {
                 System.out.println("You may enter the following commands (caps insensitive):");
                 System.out.println("end        :to exit the program");
-                System.out.println("who is in <subject> <classnumber>.<sectionnumber>        :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
-                System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber>        :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("who is in <subject> <classnumber>.<sectionnumber>                :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("who is not qualified for <subject> <classnumber>.<sectionnumber> :where <subject> is like 'CS' and <classnumber> is like '274' and  <sectionnumber> is like '01'.");
+                System.out.println("what are the prereqs for <subject> <classnumber>                 :where <subject> is like 'CS' and <classnumber> is like '274'.");
             }
             else if (m1.find()) {
-                System.out.println("In " + m1.group(1) + " " + m1.group(2) + "." + m1.group(3) + ":");
+                System.out.println("In " + m1.group(1).toUpperCase() + " " + m1.group(2) + "." + m1.group(3) + ":");
                 try{
-                    result = conn.namesInClass(m1.group(1) + m1.group(2) + m1.group(3),201710);
+                    result = conn.namesInClass(m1.group(1).toUpperCase() + m1.group(2) + m1.group(3),TERM_CODE);
                 }
                 catch(SQLException e){}
                 result.printData();
             }
             else if (m2.find()) {
-                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1)+" "+m2.group(2)+"."+m2.group(3)+":");
+                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1).toUpperCase()+" "+m2.group(2)+"."+m2.group(3)+":");
                 try{
-                    result = conn.PrereqCheck(m2.group(1),m2.group(2),m2.group(3),201410);
+                    result = conn.PrereqCheck(m2.group(1).toUpperCase(),m2.group(2),m2.group(3),TERM_CODE);
                 }
                 catch(SQLException e){}
                 result.printData();
             }
             else if (m3.find()) {
-                System.out.println("Prereqs for "+m3.group(1)+" "+m3.group(2)+":");
+                System.out.println("Prereqs for "+m3.group(1).toUpperCase()+" "+m3.group(2)+":");
                 try{
-                    result = conn.getPrereqs(m3.group(1),m3.group(2));
+                    result = conn.getPrereqs(m3.group(1).toUpperCase(),m3.group(2));
                 }
                 catch(SQLException e){}
                 result.printData();

@@ -315,7 +315,7 @@ public class SQL_Connector {
     int numColumns = 0;
     try {
       stmt = conn.createStatement();
-      String query = "SELECT First_Name, Last_Name FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"
+      String query = "SELECT First_Name AS 'First', Last_Name AS 'Last' FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '"
           + class_code + "' AND Term_Code = " + term_code;
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
@@ -401,7 +401,7 @@ public class SQL_Connector {
     int numColumns = 0;
     try {
       stmt = conn.createStatement();
-      String query = "SELECT Class_Code, Prereq_Code from PREREQS where Class_Code = '" + subjectCode + subjectNum
+      String query = "SELECT Class_Code AS 'Class', Prereq_Code AS 'Prereq' from PREREQS where Class_Code = '" + subjectCode + subjectNum
           + "'";
       stmt.executeQuery(query);
       rslt = stmt.getResultSet();
@@ -520,6 +520,13 @@ public class SQL_Connector {
     // call get prereqs
     // this returns a data object that is a list of
     Data pre = getPrereqs(subjectCode, subjectNum);
+    if(pre.isEmpty())
+    {
+      ArrayList<String> errorThing = new ArrayList<String>();
+      errorThing.add("This course has no prerequisites.");
+      newList.add(errorThing);
+      return newList;
+    }
 
     // query the database with John's string
     // he's writing a query and I need to write the stuff that passes to the db and runs it
@@ -560,17 +567,17 @@ public class SQL_Connector {
     // this pulls the first column from the data object, it is just student names
     ArrayList<String> listStudentNames = list.getColumn(0);
     // this pulls the first row, it is just the class names
-    ArrayList<String> listColumnNames = list.getRow(0);
-
+    ArrayList<String> listColumnNames =  list.getTitles();
+    
     int rows = list.getRowCount();
 
     // here I am going to loop through the height of the data object
-    for (int i = 1; i <= rows; i++) {
+    for (int i = 0; i < rows; i++) {
       // the plan here is only add students to the new data object if they have an "N"
       ArrayList<String> student = list.getRow(i);
       ArrayList<String> newStudent = new ArrayList<String>();
       newStudent.add(student.get(0));
-      for (int j = 1; j <= numColumns; j++) {
+      for (int j = 0; j < numColumns; j++) {
         if (student.get(j).equalsIgnoreCase("N")) {
           newStudent.add(listColumnNames.get(j));
         }
@@ -583,6 +590,7 @@ public class SQL_Connector {
     }
     if (newList.isEmpty()) {
       ArrayList<String> errorThing = new ArrayList<String>();
+      newList.appendColumn("Result");
       errorThing.add("All students met the required prerequisites for this course. ");
       newList.add(errorThing);
     }
