@@ -64,23 +64,25 @@ public class Data {
   public void printData() {
     int numColumns;
     String formattedTable = "";
+    if (!c_titles.isEmpty()) {
       numColumns = c_titles.size();
       formattedTable += String.format("|%12.12s|", c_titles.get(0));
       for (int i = 1; i < numColumns; i++) {
         formattedTable += String.format("|%12.12s|", c_titles.get(i));
       }
-      formattedTable += "\n";
-      for (int i = 0; i < data.size(); i++) {
-        formattedTable += String.format("|%12.12s|", data.get(i).get(0));
-        for (int j = 1; j < numColumns; j++) {
-          formattedTable += String.format("|%12.12s|", data.get(i).get(j));
-        }
-        formattedTable += "\n";
+    }
+    formattedTable += "\n";
+    for (int i = 0; i < data.size(); i++) {
+      formattedTable += String.format("|%12.12s|", data.get(i).get(0));
+      for (int j = 1; j < data.get(i).size(); j++) {
+        formattedTable += String.format("|%12.12s|", data.get(i).get(j));
       }
-      if (data.isEmpty())
-        System.out.println("No one is in this class");
-      else
-        System.out.println(formattedTable);
+      formattedTable += "\n";
+    }
+    if (data.isEmpty())
+      System.out.println("No one is in this class");
+    else
+      System.out.println(formattedTable);
   }
 
   /**
