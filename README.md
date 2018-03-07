@@ -37,7 +37,7 @@ Directory Structure
   *These could really be anywhere, see "Running Cucumber tests..." below.*
 + Cucumber Step Definitons should be in `prereqs/src/test/java/com/blinkendorf/app/step_definitions/*.java`.
 + Cucumber jUnit runner should be in `prereqs/src/test/java/com/blinkendorf/app/CucumberTest.java`
-
++ Screen Scaper that collected our prereqs is located at `root/scrape.py`
 
 Maven basic commands
 ---------------
