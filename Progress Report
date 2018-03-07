@@ -14,12 +14,12 @@ Gideon Luck: 20% Progress indicator, weekly checklist, user stories
 
 3/2/2018
 John Roper: 
-John Marsden: 
+John Marsden: Wrote tests
 Matthew Williams:   
-Gideon Luck: 
+Gideon Luck: Wrote test, updated Glossary
 
 3/7/2018
 John Roper: 
-John Marsden: 
-Matthew Williams:   
-Gideon Luck: 
+John Marsden: wrote java to call sql function to check class taken status
+Matthew Williams: built scraper to collect prereqs, set up javadocs, wrote java to find prereqs   
+Gideon Luck: wrote java function to check prereqs, updated README
