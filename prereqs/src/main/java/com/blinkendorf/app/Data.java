@@ -72,7 +72,13 @@ public class Data {
     {
       return data.get(0).get(0) + " " + data.get(0).get(1);
     }
+    
+    // function to count the rows in a Data object
+    public int getRowCount()
+    {
+      return data.get(0).size();
 
+    }
 
   }
 
