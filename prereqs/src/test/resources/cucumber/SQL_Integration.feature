@@ -38,9 +38,10 @@ Feature: Integrate with local mySQL database
     Then the database should be updated
 
 Examples:
-| filepath                                     | table        | 
-| src/test/resources/data/full/anon1810.csv    | registration |
-| src/test/resources/data/scrapedPrereqs.csv   | prereqs      |
+| filepath                                           | table        | 
+| src/test/resources/data/full/anon1810.csv | REGISTRATION |
+| src/test/resources/data/scrapedPrereqs.csv         | PREREQS      |
+
 
   Scenario: Query for people in a class
     Given the class code "CS12001"

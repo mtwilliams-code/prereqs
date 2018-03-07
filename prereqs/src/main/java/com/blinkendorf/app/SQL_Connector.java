@@ -474,11 +474,24 @@ public class SQL_Connector {
       ttr += ", ";
       String prereqCode = prereq_list.getColumn(i).get(0);
       String[] prereqCodes = prereqCode.split("or");
-      for (int j = 0; j < prereqCodes.length; i++) 
+      if(prereqCodes.length > 1)
       {
-        if (j != 0) ttr += " OR ";
-        ttr += "CLASS_TAKEN(PIDM, 'C', '"+prereqCodes[j]+"') AS '"+prereqCodes[j]+"'";
+        String title = "";
+        ttr += "CASE WHEN ";
+        for (int j = 0; j < prereqCodes.length; i++) 
+        {
+          if (j != 0)
+          {
+            ttr += " OR ";
+            title += " OR ";
+          }
+          ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[j]+"')";
+          title += prereqCodes[j];
+        }
+        ttr += " THEN 'Y' ELSE 'N' AS '"+title+"'";
       }
+      else if(prereqCodes.length > 0)
+        ttr += "CLASS_TAKEN(Pidm, 'C', '"+prereqCodes[0]+"') AS '"+prereqCodes[0]+"'";
     }
     ttr += " FROM REGISTRATION WHERE CONCAT(Subject_Code, Course_Number, Section_Number) = '" + class_code
         + "' AND Term_Code = " + term_code;
