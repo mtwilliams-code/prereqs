@@ -33,12 +33,14 @@ public class App
 
         System.out.println("Hello. What would you like to do? You may enter 'help' for options: ");
         String input;
-        Pattern classMembersRegex = Pattern.compile("who is in (\\w*) (\\d*)\\.(\\w*)");
-        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w*) (\\d*)\\.(\\w*)");
+        Pattern classMembersRegex = Pattern.compile("who is in (\\w{2,4}) (\\d{3})\\.(\\w{2,3})");
+        Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w{2,4}) (\\d{3})\\.(\\w{2,3})");
+        Pattern prereqsForRegex = Pattern.compile("what are the prereqs for (\\w{2,4}) (\\d{3})");
         System.out.print("\nEnter Query: ");
         while (!(input = scanner.nextLine().toLowerCase()).equalsIgnoreCase("end")) {
             Matcher m1 = classMembersRegex.matcher(input); 
             Matcher m2 = notQualifiedRegex.matcher(input); 
+            Matcher m3 = prereqsForRegex.matcher(input);
             if (input.equalsIgnoreCase("help")) {
                 System.out.println("You may enter the following commands (caps insensitive):");
                 System.out.println("end        :to exit the program");
@@ -54,11 +56,20 @@ public class App
                 result.printData();
             }
             else if (m2.find()) {
-                System.out.println("You want to know who is not qualified for " + m2.group(1) + " " + m2.group(2) + "." + m2.group(3) + "? Too bad. That's not implemented yet.");
+                System.out.println("Students who have unsatisfied prereqs for "+m2.group(1)+" "+m2.group(2)+"."+m2.group(3)+":");
                 try{
-                    result = conn.namesInClass(m2.group(1) + m2.group(2) + m2.group(3),201410);
+                    result = conn.PrereqCheck(m2.group(1),m2.group(2),m2.group(3),201410);
                 }
                 catch(SQLException e){}
+                result.printData();
+            }
+            else if (m3.find()) {
+                System.out.println("Prereqs for "+m3.group(1)+" "+m3.group(2)+":");
+                try{
+                    result = conn.getPrereqs(m3.group(1),m3.group(2));
+                }
+                catch(SQLException e){}
+                result.printData();
             }
             else System.out.println("I'm sorry, I didn't understand that. Please enter 'help' for information on acceptable queries.");
             System.out.print("Enter Query: ");

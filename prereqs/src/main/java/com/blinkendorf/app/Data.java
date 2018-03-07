@@ -22,11 +22,24 @@ public class Data {
     c_titles.add(title);
   }
 
+  /** 
+   * Adds a new row to the Data table
+   * 
+   * @param record ArrayList<String> containing the data from the row
+   */
   public void add(ArrayList<String> record)
   {
     data.add(record);
   }
 
+  /**
+   * Gets a column from the data table.
+   * 
+   * These will be all of the records' values for a certain attribute
+   * 
+   * @param i Integer defining the column to pull. 0-indexed.
+   * @return ArrayList<String> containing all the data from the column.
+   */
   public ArrayList<String> getColumn(int i)
   {
     ArrayList<String> rslt = new ArrayList<String>();
@@ -38,12 +51,21 @@ public class Data {
     return rslt;
   }
 
+  /**
+   * Gets a row (entry) from the data table.
+   * 
+   * @param i Integer defining the row to pull. 0-indexed.
+   * @return ArrayList<String> containing all the data from the row.
+   */
   public ArrayList<String> getRow(int i)
   {
     ArrayList<String> rs = data.get(i);
     return rs;
   }
 
+  /**
+   * Prints all of the column labels and data from the Data object straight to stdout.
+   */
   public void printData()
   {
     int numColumns;
@@ -68,16 +90,20 @@ public class Data {
       else System.out.println(formattedTable);
     }
 
-  public String getFirstRecord()
-  {
-    return data.get(0).get(0) + " " + data.get(0).get(1);
-  }
+    /**
+     * Helper function to return first two columns from the first row
+     * @return The first two columns of the first record concatenated together with a space between them.
+     */
+    public String getFirstRecord()
+    {
+      return data.get(0).get(0) + " " + data.get(0).get(1);
+    }
 
-      // function to count the rows in a Data object
-      public int getRowCount()
-      {
-        return data.get(0).size();
-      }
+    // function to count the rows in a Data object
+    public int getRowCount()
+    {
+      return data.get(0).size();
+    }
 
   }
 

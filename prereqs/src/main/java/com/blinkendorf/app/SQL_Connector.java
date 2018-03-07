@@ -17,11 +17,17 @@ import java.sql.DatabaseMetaData;
  * 
  */
 public class SQL_Connector {
-
+  /**
+   * URL for the location of the database, along with the protocol to connect through.
+   */
   String url = "jdbc:mysql://localhost:3306";
+  /** String that defines the jdbc driver. */
   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+  /** Username to connect to database with. */
   String username = "java";
+  /** Password to connect to database with. */
   String password = "Java";
+  /** Connection object to interact with SQL server. */
   Connection conn = null;
 
   /** 
@@ -74,14 +80,9 @@ public class SQL_Connector {
 
   /**
   * Creates and opens a connection to a mySQL server located at the 
-  * given URL with the given username and password.
+  * given URL with the default username and password.
   *
   * Defaults to database "records" on localhost with username java and password Java.
-  *
-  * @param  url the URL of the database, of the form "jdbc:mysql://host:port/databasename"
-  * @param  username the username to connect to the mySQL server with
-  * @param  password the password to connect to the mySQL server with
-  * @return      the image at the specified URL
   */
   public SQL_Connector() throws Exception {
     // System.out.println("Connecting database...");
@@ -112,7 +113,6 @@ public class SQL_Connector {
   * @param  url the URL of the database, of the form "jdbc:mysql://host:port/databasename"
   * @param  username the username to connect to the mySQL server with
   * @param  password the password to connect to the mySQL server with
-  * @return      the image at the specified URL
   */
   public SQL_Connector(String url, String username, String password) throws Exception {
     // System.out.println("Connecting database...");
@@ -456,7 +456,13 @@ public class SQL_Connector {
   }
 
   /** 
+   * Builds a query to find all the students who have taken the given class
    * 
+   * @param prereq_list A Data object containing the prereqs for the class
+   * @param subject_code Subject code for the class, like "CS"
+   * @param course_number Course number for the class, like "310"
+   * @param section_num Section number for the class, used to find students currently in class. Like "201410"
+   * @return A string representing the query to be run
    */
   private String classTakenQuery(Data prereq_list, String subject_code, String course_number, String section_num,
       int term_code) {
@@ -519,5 +525,55 @@ public class SQL_Connector {
     // return the data object
     return list;
   }
+
+  /**
+   * Executes any arbitrary query and returns the results as a Data object
+   * 
+   * @param query A String representing the query to be run
+   * @return A Data object containing the results
+   */
+  public Data runQuery(String query) throws SQLException
+  {
+    ResultSet rslt = null;
+    Statement stmt = null;
+    Data result = new Data();
+    ResultSetMetaData rsmd = null;
+    int numColumns = 0;
+
+    try {
+      stmt = conn.createStatement();
+      stmt.executeQuery(query);
+      rslt = stmt.getResultSet();
+      rsmd = rslt.getMetaData();
+      numColumns = rsmd.getColumnCount();
+      for (int i = 1; i <= numColumns; i++) {
+        result.appendColumn(rsmd.getColumnLabel(i));
+      }
+      while (rslt.next()) {
+        ArrayList<String> a = new ArrayList<String>();
+        for (int i = 1; i <= numColumns; i++) 
+        {
+          a.add(rslt.getString(i));
+        }
+        result.add(a);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      throw e;
+    } finally {
+      if (stmt != null) {
+        stmt.close();
+      }
+    }
+
+    // Store all the returns in a Data object
+    // limit it to show firstName, lastName, list of classes where N.
+
+    // return the data object
+    return result;
+  }
+
 
 }

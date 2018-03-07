@@ -14,6 +14,8 @@ import java.net.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
+
 /**
  * Cucumber step definitions for SQL integration feature
  */
@@ -148,7 +150,7 @@ public class SQL_Integration_Steps {
   @Then("^the list of who have taken the class will be printed$")
   public void something_else_outputs() throws Exception {
     // this should be reworked. We are deprecating the printQuery function
-    System.out.print(conn.printQuery(first_query));
+    result.printData();
     assumeTrue(true);
   }
 
@@ -161,6 +163,7 @@ public class SQL_Integration_Steps {
   public void the_app_runs_the_new_query() throws Exception {
     //this should be reworked. The app should actually RUN the query in the stepcalled "the app runs the query"
     first_query = "SELECT First_Name, Last_Name, CLASS_TAKEN(Pidm,'MATH124','C') AS MATH124 FROM REGISTRATION WHERE Subject_Code = 'CS' AND Course_Number = 120 AND Section_Number = '02' AND Term_Code = 201610";
+    result = conn.runQuery(first_query);
   }
 
   @Given("^the app queries for prereqs of \"([^\"]*)\" \"([^\"]*)\"$")
@@ -178,6 +181,7 @@ public class SQL_Integration_Steps {
       prereqString += prereqs.get(i);
     }
     assertEquals(true,arg1.equalsIgnoreCase(prereqString));
+    
   }
 
 
