@@ -473,13 +473,13 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
     Statement stmt = null;
     Data list  = new Data();
     Data newList = new Data();
-    Data pre = new Data();
+
     ResultSetMetaData rsmd = null;
     int numColumns = 0;
 
     // call get prereqs
     // this returns a data object that is a list of
-    pre = getPrereqs(subjectCode, subjectNum);
+    Data pre = getPrereqs(subjectCode, subjectNum);
 
     // query the database with John's string
     // he's writing a query and I need to write the stuff that passes to the db and runs it
@@ -497,15 +497,11 @@ public Data PrereqCheck( String subjectCode, String subjectNum, String sectionCo
       }
       while(rslt.next()) {
         ArrayList<String> a = new ArrayList<String>();
-
-    /*
-        !!!!!!!!!!!!!!!
-        Hey fix the a.add so it adds all the columns, not just the first two
-        probably do a for loop or something
-    */
-
-        a.add(rslt.getString(1));
-        a.add(rslt.getString(2));
+        
+        for( int i = 1; i <= numColumns; i++)
+        {
+          a.add(rslt.getString(i));
+        }
         list.add(a);
       }
     }
