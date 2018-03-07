@@ -457,7 +457,7 @@ public class SQL_Connector {
   }
 
   /** 
-   * Builds a query to find all the students who have taken the given class
+   * Builds a query to find all the students who have taken the given class. This query references the CLASS_TAKEN function in the database. 
    * 
    * @param prereq_list A Data object containing the prereqs for the class
    * @param subject_code Subject code for the class, like "CS"
@@ -485,10 +485,17 @@ public class SQL_Connector {
     return ttr;
   }
 
-  /**
-   * 
+    /**
+   * This calls function to get prerequisites. It then checks this against the CLASS_TAKEN function in the database. It reorganizes this data into a list of students with the classes they are missing and returns that.
+   *
+   * @param subjectCode The subject code for the class, like "CS" or "MATH"
+   * @param subjectNum The class number, like "231" or "410"
+   * @param sectionCode The section number, like ".01" or ".H1"
+   * @param termCode The term code, like "201410" or "201720"
+   *
+   * @return A Data object that lists ineligible students and the classes they are missing to be eligible.
    */
-  public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
+    public Data PrereqCheck(String subjectCode, String subjectNum, String sectionCode, int termCode) throws SQLException {
     ResultSet rslt = null;
     Statement stmt = null;
     Data list = new Data();
@@ -506,33 +513,7 @@ public class SQL_Connector {
     // ClassTakenQuery will give me a string to run
     String query = classTakenQuery(pre, subjectCode, subjectNum, sectionCode, termCode);
 
-    try {
-      stmt = conn.createStatement();
-      stmt.executeQuery(query);
-      rslt = stmt.getResultSet();
-      rsmd = rslt.getMetaData();
-      numColumns = rsmd.getColumnCount();
-      for (int i = 1; i <= numColumns; i++) {
-        list.appendColumn(rsmd.getColumnLabel(i));
-      }
-      while (rslt.next()) {
-        ArrayList<String> a = new ArrayList<String>();
-
-        for (int i = 1; i <= numColumns; i++) {
-          a.add(rslt.getString(i));
-        }
-        list.add(a);
-      }
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-      throw e;
-    } finally {
-      if (stmt != null) {
-        stmt.close();
-      }
-    }
+    list = runQuery(query);
 
     // Store all the returns in a Data object
     // limit it to show firstName, lastName, list of classes where N.
