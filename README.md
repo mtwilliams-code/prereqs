@@ -17,6 +17,9 @@ jUnit Runner, and JSEFA.
 Maven will automatically locate these repositiories and install them in your
 `$(user.home)/.m2/repositories/` directory. 
 
+You can then run the app by executing `java -jar prereqs/target/prereqs.jar` from the root directory,
+or `java -jar target/prereqs.jar` from the maven `prereqs` directory.
+
 Commands that work in our Java app
 ========================
 `who is in <subject> <classnumber>.<sectionnumber>` : where \<subject\> is like 'CS' and \<classnumber\> is like '274' and  \<sectionnumber\> is like '01'. This will give a list of all students enrolled in the section given.
@@ -41,6 +44,9 @@ Directory Structure
 
 Maven basic commands
 ---------------
+
+These must be run in `prereqs/prereqs`, because that is where the maven project is.
+
 `mvn validate`: validate the project is correct and all necessary information is
 available
 
