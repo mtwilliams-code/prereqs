@@ -4,11 +4,8 @@ Progress Report
 ------------
 
 - John Roper 20% Started collecting all the prereqs
-
 - John Marsden 25% Wrote and tested SQL Queries, wrote file that creates tables
-
 - Matthew Williams 50% Wrote SQL connection, set up maven, set up project and Gitlab
-
 - Gideon Luck 5% Wrote the glossary
 
 2/23/2018
