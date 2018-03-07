@@ -39,8 +39,8 @@ Feature: Integrate with local mySQL database
 
 Examples:
 | filepath                                           | table        | 
-| src/test/resources/data/full/anon1810.csv | registration |
-| src/test/resources/data/scrapedPrereqs.csv         | prereqs      |
+| src/test/resources/data/full/anon1810.csv | REGISTRATION |
+| src/test/resources/data/scrapedPrereqs.csv         | PREREQS      |
 
   Scenario: Query for people in a class
     Given the class code "CS12001"
