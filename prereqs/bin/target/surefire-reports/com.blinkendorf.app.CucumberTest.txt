@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.blinkendorf.app.CucumberTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 2.5 sec - in com.blinkendorf.app.CucumberTest
