@@ -29,6 +29,32 @@ public class SQL_Integration_Steps {
   String first_query;
   String section_code;
   Data result;
+  String AWSurl = "jdbc:mysql://rds-mysql-prereqs.cpmwdkch5csn.us-east-2.rds.amazonaws.com/";
+  String AWSuser = "blinkendorf";
+  String AWSpass = "brentreeves";
+
+
+
+  @Given("^a mySQL server is running on AWS$")
+  public void a_mySQL_server_is_running_on_AWS() throws Exception {
+    // this opens a Socket with the default mySQL port on localhost. Should only work if a server is listening to 3306
+    InetAddress addr = InetAddress.getByName("localhost");
+    int port = 3306;
+    SocketAddress sockaddr = new InetSocketAddress(addr, port);
+    Socket sock = new Socket();
+    sock.connect(sockaddr, 2000); // open the connection with a 2 seconds timeout
+  }
+
+  @When("^the app connects to the remote AWS server$")
+  public void the_app_connects_to_the_remote_AWS_server() throws Exception {
+    conn = new SQL_Connector(AWSurl, AWSuser, AWSpass);
+  }
+
+  @Given("^the app connects to the \"([^\"]*)\" database on the AWS server$")
+  public void the_app_connects_to_the_database_on_the_AWS_server(String arg1) throws Exception {
+    String url = AWSurl + arg1;
+    conn = new SQL_Connector(url, AWSuser, AWSpass);
+  }
 
   @Given("^a mySQL server is running on the local machine$")
   public void a_mySQL_server_is_running_on_the_local_machine() throws Exception {
@@ -99,7 +125,7 @@ public class SQL_Integration_Steps {
     conn.createDatabase(arg1);
   }
 
-  @Given("^the app connects to the \"([^\"]*)\" database on the server$")
+  @Given("^the app connects to the \"([^\"]*)\" database on the local server$")
   public void the_app_connects_to_the_database_on_the_server(String arg1) throws Exception {
     String url = "jdbc:mysql://localhost:3306/" + arg1;
     String username = "java";

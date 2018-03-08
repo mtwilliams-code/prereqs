@@ -85,7 +85,7 @@ public class SQL_Connector {
   *
   * Defaults to database "records" on localhost with username java and password Java.
   */
-  public SQL_Connector() throws Exception {
+  public SQL_Connector() throws SQLException {
     // System.out.println("Connecting database...");
     try {
       //I haven't the slightest idea what this does but I think its necessary
@@ -99,8 +99,8 @@ public class SQL_Connector {
       System.out.println("SQLException: " + ex.getMessage());
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
-      throw new Exception(ex.getMessage());
-    } catch (Exception ex) {
+      throw new SQLException(ex.getMessage());
+    } catch (ClassNotFoundException ex) {
       System.out.println(ex.getMessage());
     }
   }
@@ -115,7 +115,7 @@ public class SQL_Connector {
   * @param  username the username to connect to the mySQL server with
   * @param  password the password to connect to the mySQL server with
   */
-  public SQL_Connector(String url, String username, String password) throws Exception {
+  public SQL_Connector(String url, String username, String password) throws SQLException, ClassNotFoundException {
     // System.out.println("Connecting database...");
     this.url = url;
     this.username = username;
@@ -131,7 +131,9 @@ public class SQL_Connector {
       System.out.println("SQLException: " + ex.getMessage());
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
-      throw new Exception(ex.getMessage());
+      throw new SQLException(ex.getMessage());
+    } catch (ClassNotFoundException ex) {
+      System.out.println(ex.getMessage());
     }
   }
 
@@ -279,7 +281,7 @@ public class SQL_Connector {
       stmt.executeUpdate(query);
       query = "DROP function IF EXISTS `CLASS_TAKEN`";
       stmt.executeUpdate(query);
-      query = "CREATE DEFINER=`java`@`localhost` FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"
+      query = "CREATE FUNCTION `CLASS_TAKEN`(PIDMIN INT, GRADE VARCHAR(15), CLASS_CODE VARCHAR(10))\n"
           + "RETURNS char(1) CHARSET latin1\n" + "BEGIN\n" + "DECLARE done INT DEFAULT FALSE;\n"
           + "DECLARE CCode VARCHAR(10) default '';\n" + "DECLARE FGrade VARCHAR(2);\n"+"DECLARE STS VARCHAR(2);\n"
           + "DECLARE OUTPUT CHAR DEFAULT 'N';\n"

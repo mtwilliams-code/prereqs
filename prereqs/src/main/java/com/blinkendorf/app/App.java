@@ -14,26 +14,60 @@ import com.blinkendorf.app.SQL_Connector;
  */
 public class App 
 {
+  static String localurl = "jdbc:mysql://localhost:3306/";
+  static String AWSurl = "jdbc:mysql://rds-mysql-prereqs.cpmwdkch5csn.us-east-2.rds.amazonaws.com/";
+  /** String that defines the jdbc driver. */
+  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+  /** Username to connect to database with. */
+  static String localusername = "java";
+  static String AWSusername = "blinkendorf";
+  /** Password to connect to database with. */
+  static String localpassword = "Java";
+  static String AWSpassword = "brentreeves";
+
     private static Scanner scanner = new Scanner( System.in );
     private static Data result;
     private static final int TERM_CODE = 201810;
     public static void main( String[] args )
     {
+        String input;
         SQL_Connector conn = null;
-        System.out.println("Give us a moment to ensure we can connect to the database...");
-        try {
-            String url = "jdbc:mysql://localhost:3306/" + "RECORDS";
-            String username = "java";
-            String password = "Java";
-            conn = new SQL_Connector(url, username, password);
-        } catch (Exception ex) {
-            System.out.println("Uh oh! Something went wrong and we could not connect to the database.");
-            System.out.println(
-                    "Please ensure you are hosting a mySQL server listening to port 3306 with user:java and pass: Java.");
+        System.out.println("Do you want to connect to a local database or AWS?");
+        System.out.println("Please enter \"local\" or \"aws\": ");
+        input = scanner.nextLine().toLowerCase();
+        if (input.equalsIgnoreCase("local"))
+        {
+            System.out.println("Give us a moment to ensure we can connect to the local database...");
+            try {
+                String url = localurl + "RECORDS";
+                String username = localusername;
+                String password = localpassword;
+                conn = new SQL_Connector(url, username, password);
+            } catch (Exception ex) {
+                System.out.println("Uh oh! Something went wrong and we could not connect to the local database.");
+                System.out.println(
+                        "Please ensure you are hosting a mySQL server listening to port 3306 with user:java and pass: Java.");
+            } finally {
+                // end program
+            }
+        }
+
+        if (input.equalsIgnoreCase("aws"))
+        {
+            System.out.println("Give us a moment to ensure we can connect to the remote AWS database...");
+            try {
+                String url = AWSurl + "RECORDS";
+                String username = AWSusername;
+                String password = AWSpassword;
+                conn = new SQL_Connector(url, username, password);
+            } catch (Exception ex) {
+                System.out.println("Uh oh! Something went wrong and we could not connect to the remote AWS database.");
+                System.out.println(
+                        "Please ensure you have an AWS server listening to port 3306 with user:blinkendorf and pass:brentreeves.");
+            }
         }
 
         System.out.println("Hello. What would you like to do? You may enter 'help' for options: ");
-        String input;
         Pattern classMembersRegex = Pattern.compile("who is in (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
         Pattern notQualifiedRegex = Pattern.compile("who is not qualified for (\\w{2,4})\\s?(\\d{3})\\.(\\w{2,3})");
         Pattern prereqsForRegex = Pattern.compile("what are the prereqs for (\\w{2,4})\\s?(\\d{3})");
