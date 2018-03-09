@@ -9,38 +9,38 @@ Feature: Integrate with local mySQL database
     When the app connects to the local server
     Then the connection should be valid
 
-  Scenario: Create a database in mySQL on the local machine
-  The app should be able to create a database
-    Given a mySQL server is running on the local machine
-    And the app connects to the local server
-    When the app tries to create the "RECORDS" database
-    Then the "RECORDS" database exists on the server
+#   Scenario: Create a database in mySQL on the local machine
+#   The app should be able to create a database
+#     Given a mySQL server is running on the local machine
+#     And the app connects to the local server
+#     When the app tries to create the "RECORDS" database
+#     Then the "RECORDS" database exists on the server
 
-  Scenario: Create "REGISTRATION" table in mySQL on the local machine
-  The app should be able to create a table in a database
-    Given a mySQL server is running on the local machine
-    And the app connects to the "RECORDS" database on the local server 
-    When the app tries to create the registration table
-    Then the database should contain a blank "registration" table
+#   Scenario: Create "REGISTRATION" table in mySQL on the local machine
+#   The app should be able to create a table in a database
+#     Given a mySQL server is running on the local machine
+#     And the app connects to the "RECORDS" database on the local server 
+#     When the app tries to create the registration table
+#     Then the database should contain a blank "registration" table
 
-  Scenario: Create "PREREQS" table in mySQL on the local machine
-  The app should be able to create a table in a database
-    Given a mySQL server is running on the local machine
-    And the app connects to the "RECORDS" database on the local server 
-    When the app tries to create the prereqs table
-    Then the database should contain a blank "prereqs" table
+#   Scenario: Create "PREREQS" table in mySQL on the local machine
+#   The app should be able to create a table in a database
+#     Given a mySQL server is running on the local machine
+#     And the app connects to the "RECORDS" database on the local server 
+#     When the app tries to create the prereqs table
+#     Then the database should contain a blank "prereqs" table
 
-  Scenario Outline: Import data from CSV file into mySQL server
-  The app shoul be able to import any csv file of the appropriate form into the table
-    Given a mySQL server is running on the local machine
-    And the app connects to the "RECORDS" database on the local server 
-    When the app tries to import the data from "<filepath>" into "<table>"
-    Then the database should be updated
+#   Scenario Outline: Import data from CSV file into mySQL server
+#   The app shoul be able to import any csv file of the appropriate form into the table
+#     Given a mySQL server is running on the local machine
+#     And the app connects to the "RECORDS" database on the local server 
+#     When the app tries to import the data from "<filepath>" into "<table>"
+#     Then the database should be updated
 
-Examples:
-| filepath                                           | table        | 
-| src/test/resources/data/full/anon1810.csv | REGISTRATION |
-| src/test/resources/data/scrapedPrereqs.csv         | PREREQS      |
+# Examples:
+# | filepath                                           | table        | 
+# | src/test/resources/data/full/anon1810.csv | REGISTRATION |
+# | src/test/resources/data/scrapedPrereqs.csv         | PREREQS      |
 
 
   Scenario: Query for people in a class
